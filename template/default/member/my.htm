@@ -1,0 +1,15 @@
+{template 'header', $module}
+<div class="pos">{$head_title}</div>
+<table cellspacing="1" cellpadding="10" class="tb">
+{loop $MYMODS $v}
+<tr>
+<td class="tl"><a href="{$MODULE[$v][linkurl]}" target="_blank">{$MODULE[$v][name]}</a></td>
+<td class="tr">
+<a href="{$MODULE[2][linkurl]}my.php?mid={$v}" class="b">管理</a>&nbsp;&nbsp;
+<a href="{$MODULE[2][linkurl]}my.php?mid={$v}&action=add" class="b">发布</a>
+</td>
+</tr>
+{/loop}
+</table>
+<script type="text/javascript">s('index');m('home');</script>
+{template 'footer', $module}

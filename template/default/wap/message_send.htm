@@ -1,0 +1,14 @@
+{template 'header', 'wap'}
+<br/>
+会员:<input type="text" name="touser" value="{$touser}" format="M*m"/><br/>
+标题:<input type="text" name="title" value="{$title}" format="M*m"/><br/>
+内容:<input type="text" name="content" value="{$content}" format="M*m"/><br/>
+<anchor>发送<go href="index.php" method="post">
+<postfield name="moduleid" value="{$moduleid}"/>
+<postfield name="action" value="{$action}" />
+<postfield name="submit" value="1"/>
+<postfield name="touser" value="$(touser)"/>
+<postfield name="title" value="$(title)"/>
+<postfield name="content" value="$(content)"/></go></anchor>
+<br/>
+{template 'footer', 'wap'}

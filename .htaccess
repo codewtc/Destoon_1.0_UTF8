@@ -1,0 +1,4 @@
+# Destoon Rewrite Rule
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(.*)-htm-(.*)$ $1.php?$2

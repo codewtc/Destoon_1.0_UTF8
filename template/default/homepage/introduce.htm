@@ -1,0 +1,50 @@
+{template 'header', $template}
+<div class="pos">当前位置：<a href="{$COM[linkurl]}">{$COM[company]}首页</a> &raquo; <a href="{$MENU[introduce][1]}">{$MENU[introduce][0]}</a></div>
+<div class="box">
+	<h1>{$MENU[introduce][0]}</h1>	
+	<div class="lh18 px13">
+	<table width="98%" cellpadding="3" cellspacing="3" align="center">
+	<tr>
+	<td><img src="{$COM[thumb]}" align="right" style="margin:5px 0 5px 10px;padding:5px;border:#C0C0C0 1px solid;"/>{$content}</td>
+	</tr>
+	</table>
+	</div>
+</div>
+<div class="box">
+	<h1>公司档案</h1>
+	<div class="px13 lh18">
+	<table width="98%" cellpadding="3" cellspacing="1" align="center">
+	<tr>
+	<td width="90" class="f_b">公司名称：</td>
+	<td>{$COM[company]}</td>
+	<td width="90" class="f_b">主营行业：</td>
+	<td>{$COM[business]}</td>
+	</tr>
+	<tr>
+	<td class="f_b">公司类型：</td>
+	<td>{$COM[type]}</td>
+	<td class="f_b">经营模式：</td>
+	<td>{$COM[mode]}</td>
+	</tr>
+	<tr>
+	<td class="f_b">公司规模：</td>
+	<td>{$COM[size]}</td>
+	<td class="f_b">注册资本：</td>
+	<td>{$COM[capital]}万{$COM[regunit]}</td>
+	</tr>
+	<tr>
+	<td class="f_b">注册年份：</td>
+	<td>{$COM[regyear]}</td>
+	<td class="f_b">注 册 地：</td>
+	<td>{$COM[regcity]}</td>
+	</tr>
+	<tr>
+	<td class="f_b">销售的产品：</td>
+	<td>{$COM[sell]}</td>
+	<td class="f_b">采购的产品：</td>
+	<td>{$COM[buy]}</td>
+	</tr>
+	</table>
+	</div>
+</div>
+{template 'footer', $template}

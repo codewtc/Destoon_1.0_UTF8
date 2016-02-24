@@ -1,0 +1,23 @@
+{template 'header', 'wap'}
+{if $itemid}
+	<b>{$title}</b><br/>
+	日期:<small>{$adddate}</small><br/>
+	{if $fromuser}发信人:<a href="index.php?moduleid=4&amp;username={$fromuser}">{$fromuser}</a><br/>{/if}
+	<a href="index.php?moduleid={$moduleid}&amp;action={$action}">返回</a>
+	<a href="index.php?moduleid={$moduleid}&amp;action=message_send&amp;touser={$fromuser}&amp;title=RE:{urlencode($title)}">回复</a>
+	<a href="index.php?moduleid={$moduleid}&amp;action=message_delete&amp;itemid={$itemid}">删除</a>
+	<br/>
+	{$content}<br/>
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;action={$action}&amp;typeid={$v[typeid]}">[{$v[type]}]</a> <a href="index.php?moduleid={$moduleid}&amp;action={$action}&amp;itemid={$v[itemid]}">{if !$v[isread]}<b>{/if}{$v[title]}{if !$v[isread]}</b>{/if}</a>{if $v[fromuser]} <a href="index.php?moduleid=4&amp;username={$v[fromuser]}">({$v[fromuser]})</a>{/if} <small>{$v[adddate]}</small><br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<a href="index.php?moduleid={$moduleid}&amp;action={$action}">收件箱</a> 
+<a href="index.php?moduleid={$moduleid}&amp;action=message_send">写信</a> 
+<br/>
+<input type="text" name="kw" value="{$kw}" format="M*m"/><anchor>搜索<go href="index.php" method="get"><postfield name="moduleid" value="{$moduleid}"/><postfield name="action" value="{$action}"/><postfield name="kw" value="$(kw)"/></go></anchor>
+<br/>
+{template 'footer', 'wap'}

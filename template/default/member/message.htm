@@ -1,0 +1,368 @@
+{template 'header', $module}
+<div class="pos">站内信</div>
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab" id="send"><a href="{$MOD[linkurl]}message.php?action=send"><span>发送信件</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="inbox"><a href="{$MOD[linkurl]}message.php?action=inbox"><span>收件箱</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="outbox"><a href="{$MOD[linkurl]}message.php?action=outbox"><span>已发送</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="draft"><a href="{$MOD[linkurl]}message.php?action=draft"><span>草稿箱</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="recycle"><a href="{$MOD[linkurl]}message.php?action=recycle"><span>回收站</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="export"><a href="{$MOD[linkurl]}message.php?action=export"><span>信件导出</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="setting"><a href="{$MOD[linkurl]}message.php?action=setting"><span>个性设置</span></a></td>
+</tr>
+</table>
+</div>
+{if $action == 'send'}
+<form method="post" action="{$MOD[linkurl]}message.php?action={$action}" id="dform" onsubmit="return check();">
+<input type="hidden" name="typeid" value="{$typeid}"/> 
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr>
+<td class="tl"><span class="f_red">*</span> 收件人</td>
+<td class="tr f_gray"><input type="text" size="45" name="message[touser]" id="touser" value="{$touser}"/>&nbsp; <a href="javascript:Diframe('{$MOD[linkurl]}friend.php?action=my', '450', 0, 1, '我的商友');" class="t">[我的商友]</a> <span id="dtouser" class="f_red"></span>
+<br/>多个收件人请按空格键隔开 最多同时发送给{$MOD[maxtouser]}个收件人</td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 标题</td>
+<td class="tr"><input type="text" size="60" name="message[title]" id="title" value="{$title}"/> <span id="dtitle" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 内容</td>
+<td class="tr"><textarea name="message[content]" id="content" class="dsn">{$content}</textarea>
+{deditor($moduleid, 'content', 'Simple', 500, 200)}<br/><span id="dcontent" class="f_red"></span>
+</td>
+</tr>
+<tr>
+<td class="tl">选项</td>
+<td class="tr">
+<input type="checkbox" name="message[save]" id="save" value="1" onclick="if(this.checked){$('copy').checked=$('feedback').checked=false;}"/> 不发送，保存为草稿
+<input type="checkbox" name="message[copy]" id="copy" value="1" onclick="if(this.checked){$('save').checked=false;}"/> 保存到已发送
+<input type="checkbox" name="message[feedback]" id="feedback" value="1" onclick="if(this.checked){$('save').checked=false;}"/> 已读回执
+</td>
+</tr>
+{if $MOD[captcha_sendmessage]}
+<tr>
+<td class="tl"><span class="f_red">*</span> 验证码</td>
+<td class="tr">{template 'captcha'} <span id="dcaptcha" class="f_red"></span></td>
+</tr>
+{/if}
+<tr>
+<td class="tl"> </td>
+<td class="tr" height="50">
+<input type="submit" name="submit" value=" 确 定 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="reset" value=" 重 置 " class="btn"/>
+</td>
+</tr>
+</table>
+</form>
+{load('clear.js')}
+<script type="text/javascript">
+function check() {
+	var len;
+	if($('save').checked == false) {
+		if($('touser').value == '') {
+			Dmsg('请填写收件人', 'touser');
+			return false;
+		}
+	}
+	len = $('title').value.length;
+	if(len < 5) {
+		Dmsg('标题不能少于5个字，当前已输入'+len+'个字', 'title');
+		return false;
+	}
+	if(len > 60) {
+		Dmsg('标题不能多于60个字，当前已输入'+len+'个字', 'title');
+		return false;
+	}
+	len = FCKLen();
+	if(len < 10) {
+		Dmsg('内容不能少于10个字，当前已输入'+len+'个字', 'content');
+		return false;
+	}
+	if(len > 5000) {
+		Dmsg('内容不能多于5000个字，当前已输入'+len+'个字', 'content');
+		return false;
+	}
+{if $MOD[captcha_sendmessage]}
+	if($('captcha').value.length < 4) {
+		Dmsg('请填写验证码', 'captcha');
+		return false;
+	}
+{/if}
+	return true;
+}
+</script>
+{elseif $action == 'edit'}
+<form method="post" action="{$MOD[linkurl]}message.php?action={$action}" id="dform" onsubmit="return check();">
+<input type="hidden" name="itemid" value="{$itemid}"/> 
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr>
+<td class="tl"><span class="f_red">*</span> 收件人</td>
+<td class="tr f_gray"><input type="text" size="45" name="message[touser]" id="touser" value="{$touser}"/> <a href="{$MOD[linkurl]}friend.php" class="t">[我的商友]</a> <span id="dtouser" class="f_red"></span><br/>多个收件人请按空格键隔开 最多同时发送给{$MOD[maxtouser]}个收件人</td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 标题</td>
+<td class="tr f_gray"><input type="text" size="60" name="message[title]" id="title" value="{$title}"/> <span id="dtitle" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 内容</td>
+<td class="tr f_gray"><textarea name="message[content]" id="content" class="dsn">{$content}</textarea>
+{deditor($moduleid, 'content', 'Simple', 500, 200)}<br/><span id="dcontent" class="f_red"></span>
+</td>
+</tr>
+<tr>
+<td class="tl">选项</td>
+<td class="tr">
+<input type="checkbox" name="message[send]" id="sendmsg" value="1" onclick="if(!this.checked){$('copy').checked=$('feedback').checked=false;}"/> 发送信件
+<input type="checkbox" name="message[copy]" id="copy" value="1" onclick="if(this.checked){$('sendmsg').checked=true;}"/> 保存到已发送
+<input type="checkbox" name="message[feedback]" id="feedback" value="1" onclick="if(this.checked){$('sendmsg').checked=true;}"/> 已读回执
+</td>
+</tr>
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="50"><input type="submit" name="submit" value=" 修 改 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/></td>
+</tr>
+</table>
+</form>
+{load('clear.js')}
+<script type="text/javascript">
+function check() {
+	var len;
+	if($('sendmsg').checked == true) {
+		if($('touser').value == '') {
+			Dmsg('请填写收件人', 'touser');
+			return false;
+		}
+	}
+	len = $('title').value.length;
+	if(len < 5) {
+		Dmsg('标题不能少于5个字，当前已输入'+len+'个字', 'title');
+		return false;
+	}
+	if(len > 60) {
+		Dmsg('标题不能多于60个字，当前已输入'+len+'个字', 'title');
+		return false;
+	}
+	len = FCKLen();
+	if(len < 10) {
+		Dmsg('内容不能少于10个字，当前已输入'+len+'个字', 'content');
+		return false;
+	}
+	if(len > 5000) {
+		Dmsg('内容不能多于5000个字，当前已输入'+len+'个字', 'content');
+		return false;
+	}
+	return true;
+}
+</script>
+{php $action='draft'}
+{elseif $action == 'export'}
+<form method="post" action="{$MOD[linkurl]}message.php">
+<input type="hidden" name="action" value="{$action}"/>
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr>
+<td class="tl">提示</td>
+<td class="tr f_blue">&nbsp;请定期导出重要信件，以免被系统自动清除</td>
+</tr>
+<tr>
+<td class="tl">信件</td>
+<td class="tr">
+<input type="radio" value="3" name="message[status]" checked="checked"/> 收件箱
+<input type="radio" value="2" name="message[status]" /> 已发送
+<input type="radio" value="1" name="message[status]" /> 草稿箱
+<input type="radio" value="4" name="message[status]" /> 回收站
+</td>
+</tr>
+<tr>
+<td class="tl">日期范围</td>
+<td class="tr">
+{dcalendar('fromdate', $fromdate)} 至 {dcalendar('todate', $todate)}
+<br/><span class="f_gray">每次最多导出100封，请设置合理的时间段，以免遗漏部分信件</span>
+</td>
+</tr>
+<tr>
+<td class="tl">选项</td>
+<td class="tr">
+<input type="checkbox" value="1" name="message[isread]" /> 仅导出未读信件
+</td>
+</tr>
+<tr>
+<td class="tl"> </td>
+<td class="tr" height="50">
+<input type="submit" name="submit" value=" 导 出 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="reset" value=" 重 置 " class="btn"/>
+</td>
+</tr>
+</table>
+</form>
+{elseif $action == 'show'}
+<table cellspacing="1" cellpadding="8" class="tb">
+<tr>
+<td class="tl">标题</td>
+<td class="tr"><strong>{$title}</strong></td>
+</tr>
+{if $status==4 || $status==3}
+{if $fromuser}
+<tr>
+<td class="tl">发件人</td>
+<td class="tr"><a href="{$MODULE[3][linkurl]}redirect.php?username={$fromuser}" target="_blank" class="t">{$fromuser}</a></td>
+</tr>
+{/if}
+{elseif $status==2}
+<tr>
+<td class="tl">收件人</td>
+<td class="tr">{$touser}</td>
+</tr>
+{/if}
+<tr>
+<td class="tl">时间</td>
+<td class="tr">{$addtime}</td>
+</tr>
+<tr>
+<td class="tl">正文</td>
+<td class="tr" style="line-height:180%;">{$content}</td>
+</tr>
+<tr>
+<td class="tl">选项</td>
+<td class="tr">
+<input type="button" value=" 返 回 " class="btn" onclick="window.location='{$forward}';"/>
+{if $status==4}
+<input type="button" class="btn" value="还 原" onclick="window.location='{$MOD[linkurl]}message.php?action=restore&itemid={$itemid}&forward={urlencode('?action=inbox')}';"/> 
+{if $fromuser}
+<input type="button" class="btn" value="回 复" onclick="window.location='{$MOD[linkurl]}message.php?action=send&touser={$fromuser}&title=RE:{urlencode($title)}';"/> 
+<input type="button" class="btn" value="转 发" onclick="$('_send').submit();"/>
+<input type="button" class="btn" value="拒 收" onclick="if(confirm('确定要拒绝来自 {$fromuser} 的站内信吗？'))window.location='{$MOD[linkurl]}message.php?action=refuse&username={$fromuser}';"/>  
+{/if}
+<input type="button" class="btn" value="彻底删除" onclick="if(confirm('确定要删除此信件吗？此操作不可撤销')) window.location='{$MOD[linkurl]}message.php?action=delete&itemid={$itemid}&forward={urlencode('?action=recycle')}';"/> 
+{php $action='recycle'}
+{elseif $status==3}
+{if $fromuser}
+<input type="button" class="btn" value="回 复" onclick="window.location='{$MOD[linkurl]}message.php?action=send&touser={$fromuser}&title=RE:{urlencode($title)}';"/> 
+<input type="button" class="btn" value="转 发" onclick="$('_send').submit();"/>
+<input type="button" class="btn" value="拒 收" onclick="if(confirm('确定要拒绝来自 {$fromuser} 的站内信吗？'))window.location='{$MOD[linkurl]}message.php?action=refuse&username={$fromuser}';"/>  
+{/if}
+<input type="button" class="btn" value="回收站" onclick="window.location='{$MOD[linkurl]}message.php?action=delete&itemid={$itemid}&forward={urlencode('?action=inbox')}';"/>
+<input type="button" class="btn" value="彻底删除" onclick="if(confirm('确定要删除此信件吗？此操作不可撤销')) window.location='{$MOD[linkurl]}message.php?action=delete&recycle=0&itemid={$itemid}&forward={urlencode('?action=inbox')}';"/> 
+{php $action='inbox'}
+{elseif $status==2}
+ {if $fromuser}
+ <input type="button" class="btn" value="转 发" onclick="$('_send').submit();"/>
+ {/if}
+ <input type="button" class="btn" value="彻底删除" onclick="if(confirm('确定要删除此信件吗？此操作不可撤销')) window.location='{$MOD[linkurl]}message.php?action=delete&itemid={$itemid}&forward={urlencode('?action=outbox')}';"/> 
+{php $action='outbox'}
+{elseif $status==1}
+ {if $fromuser}
+ <input type="button" class="btn" value="转 发" onclick="$('_send').submit();"/>
+ {/if} 
+ <input type="button" class="btn" value="彻底删除" onclick="if(confirm('确定要删除此信件吗？此操作不可撤销')) window.location='{$MOD[linkurl]}message.php?action=delete&itemid={$itemid}&forward={urlencode('?action=draft')}';"/>
+{php $action='draft'}
+{elseif $status==0}
+	{php $action='inbox'}
+{/if}
+<form action="{$MOD[linkurl]}message.php?action=send" method="post" id="_send">
+<textarea name="title" class="dsn">{$title}</textarea>
+<textarea name="content" class="dsn">{$content}</textarea>
+</form>
+</td>
+</tr>
+</table>
+{if $messages}
+<div class="ls">
+<table cellspacing="0" cellpadding="0" class="tb">
+<tr>
+<th width="50">类型</th>
+<th>&nbsp;标 题</th>
+<th width="150">发件人</th>
+<th width="170" align="center">时 间</th>
+</tr>
+{loop $messages $message}
+<tr align="center" onmouseover="this.className='on';" onmouseout="this.className='';">
+<td><a href="{$MOD[linkurl]}message.php?action={$action}&typeid={$message[typeid]}"><img src="{SKIN_PATH}member/message_{$message[typeid]}.gif" width="16" height="16" title="{$TYPE[$message[typeid]]}" alt=""/></a></td>
+<td align="left"><a href="{if $status==1}{$MOD[linkurl]}message.php?action=edit&itemid={$message[itemid]}{else}{$MOD[linkurl]}message.php?action=show&itemid={$message[itemid]}{/if}"{if $status>2 && !$message[isread]} class="f_b"{if $message[feedback]}onclick="if(confirm('该信件请求发送已读回执，是否发送？')){ window.location=this.href+'&feedback=1';return false;}"{/if}{/if} class="t" title="{$message[title]}">{$message[dtitle]}</a></td>
+<td align="center">{if $message[userurl]}<a href="{$MODULE[3][linkurl]}redirect.php?username={$message[user]}" target="_blank">{$message[user]}</a>{else}{$message[user]}{/if}</td>
+<td>{$message[addtime]}</td>
+</tr>
+{/loop}
+</table>
+</div>
+{/if}
+{elseif $action == 'setting'}
+<form method="post" action="{$MOD[linkurl]}message.php?action={$action}">
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr>
+<td class="tl" width="80">黑名单</td>
+<td class="tr f_gray"><textarea name="black" id="black" style="width:90%;height:100px;overflow:visible;">{$user[black]}</textarea><br/>[提示] 直接输入会员名即可将会员列入黑名单，多个会员名请用空格键隔开，系统将不再接收来自黑名单的信件</td>
+</tr>
+<tr>
+<td class="tl"> </td>
+<td height="50" class="tr">
+<input type="submit" name="submit" value=" 更 新 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 清 空 " class="btn" onclick="$('black').value='';"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="reset" value=" 重 置 " class="btn"/>
+</td>
+</tr>
+</table>
+</form>
+{else}
+<div class="tt">
+<form action="{$MOD[linkurl]}message.php">
+<input type="hidden" name="action" value="{$action}"/>
+<input type="hidden" name="status" value="{$status}"/>
+&nbsp;{$type_select}&nbsp;
+<input type="text" name="kw" value="{$kw}" size="50" title="关键词"/>&nbsp;
+<input type="submit" value=" 搜 索 " class="btn"/>
+<input type="button" value=" 重 置 " class="btn" onclick="window.location='{$MOD[linkurl]}message.php?action={$action}';"/>
+</form>
+</div>
+<form method="post">
+<div class="ls">
+<table cellspacing="0" cellpadding="0" class="tb">
+<tr>
+<th width="25"><input type="checkbox" onclick="checkall(this.form);"/></th>
+<th width="40">类型</th>
+<th>&nbsp;标 题</th>
+{if $status>1}<th width="150">{if $status==2}收件人{else}发件人{/if}</th>{/if}
+<th width="170" align="center">时 间</th>
+</tr>
+{if $status==3}
+{loop $systems $message}
+<tr align="center" onmouseover="this.className='on';" onmouseout="this.className='';">
+<td><input type="checkbox" disabled/></td>
+<td><img src="{SKIN_PATH}member/message_sys.gif" width="16" height="16" title="系统广播" alt=""/></td>
+<td align="left"><a href="{$MOD[linkurl]}message.php?action=show&itemid={$message[itemid]}"><span class="f_red" title="{$message[title]}">{$message[title]}</span></a></td>
+<td>{$message[user]}</td>
+<td>{$message[addtime]}</td>
+</tr>
+{/loop}
+{/if}
+{loop $messages $message}
+<tr align="center" onmouseover="this.className='on';" onmouseout="this.className='';">
+<td><input type="checkbox" name="itemid[]" value="{$message[itemid]}"/></td>
+<td><a href="{$MOD[linkurl]}message.php?action={$action}&typeid={$message[typeid]}"><img src="{SKIN_PATH}member/message_{$message[typeid]}.gif" width="16" height="16" title="{$TYPE[$message[typeid]]}" alt=""/></a></td>
+<td align="left"><a href="{if $status==1}{$MOD[linkurl]}message.php?action=edit&itemid={$message[itemid]}{else}{$MOD[linkurl]}message.php?action=show&itemid={$message[itemid]}{/if}"{if $status>2 && !$message[isread]} class="f_b"{if $message[feedback]}onclick="if(confirm('该信件请求发送已读回执，是否发送？')){ window.location=this.href+'&feedback=1';return false;}"{/if}{/if} class="t" title="{$message[title]}">{$message[dtitle]}</a></td>
+{if $status>1}<td align="center">{if $message[userurl]}<a href="{$message[userurl]}" target="_blank">{$message[user]}</a>{else}{$message[user]}{/if}</td>{/if}
+<td>{$message[addtime]}</td>
+</tr>
+{/loop}
+</table>
+<div class="btns">
+{if $status==4}
+<input type="submit" value=" 还 原 " class="btn" onclick="this.form.action='{$MOD[linkurl]}message.php?action=restore';"/>
+<input type="submit" value=" 彻底删除 " class="btn" onclick="if(confirm('确定要删除选中信件吗？此操作不可撤销')){this.form.action='{$MOD[linkurl]}message.php?action=delete';}else{return false;}"/>
+{elseif $status==3}
+<input type="submit" value=" 标记已读 " class="btn" onclick="this.form.action='{$MOD[linkurl]}message.php?action=mark';"/>
+<input type="submit" value=" 回收站 " class="btn" onclick="this.form.action='{$MOD[linkurl]}message.php?action=delete';"/>
+<input type="submit" value=" 彻底删除 " class="btn" onclick="if(confirm('确定要删除选中信件吗？此操作不可撤销')){this.form.action='{$MOD[linkurl]}message.php?action=delete&recycle=0';}else{return false;}"/>
+{else}
+<input type="submit" value=" 彻底删除 " class="btn" onclick="if(confirm('确定要删除选中信件吗？此操作不可撤销')){this.form.action='{$MOD[linkurl]}message.php?action=delete';}else{return false;}"/>
+{/if}
+<input type="submit" value=" 清 空 " class="btn" onclick="if(confirm('确定要清空{$name}信件吗？此操作不可撤销')){this.form.action='{$MOD[linkurl]}message.php?action=clear&status={$status}';}else{return false;}"/>
+</div>
+</form>
+</div>
+<div class="pages">{$pages}</div>
+{/if}
+<script type="text/javascript">s('message');m('{$action}');</script>
+{template 'footer',$module}

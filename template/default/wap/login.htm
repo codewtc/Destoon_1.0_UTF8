@@ -1,0 +1,12 @@
+{template 'header', 'wap'}
+<br/>
+户名:<input type="text" name="username" format="M*m"/><br/>
+密码:<input type="password" name="password" format="M*m"/><br/>
+<anchor>登录<go href="index.php" method="post">
+<postfield name="moduleid" value="{$moduleid}"/>
+<postfield name="action" value="{$action}"/>
+<postfield name="submit" value="1"/>
+<postfield name="username" value="$(username)"/>
+<postfield name="password" value="$(password)"/></go></anchor>
+<br/>
+{template 'footer', 'wap'}

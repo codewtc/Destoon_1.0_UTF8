@@ -1,0 +1,14 @@
+buy/
+cache/*
+company/
+exhibit/
+file/*
+install/
+invest/
+news/
+plugin/
+product/
+sell/
+template/*
+config.inc.php
+index.html

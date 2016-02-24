@@ -1,0 +1,288 @@
+{template 'header',$module}
+<div class="pos">修改资料</div>
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab"  id="Tab0"><a href="javascript:Tab(0);"><span>公司资料</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab"  id="Tab1"><a href="javascript:Tab(1);"><span>公司联系方式</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab2"><a href="javascript:Tab(2);"><span>公司介绍</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab"  id="Tab3"><a href="javascript:Tab(3);"><span>个人资料</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab"  id="Tab4"><a href="javascript:Tab(4);"><span>修改密码</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab"  id="Tab5"><a href="javascript:Tab(5);"><span>主页设置</span></a></td>
+</tr>
+</table>
+</div>
+
+<form method="post" action="{$MOD[linkurl]}edit.php" onsubmit="return Dcheck();" id="dform">
+<table cellpadding="6" cellspacing="1" class="tb">
+<tbody id="Tabs0" style="display:;">
+<tr>
+<td class="tl">公司名</td>
+<td class="tr f_b">{$_company}</td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span>公司类型</td>
+<td class="tr">{dselect($COM_TYPE, 'member[type]', '请选择', $type, 'id="type"', 0)}&nbsp;<span id="dtype" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl">形象图片</td>
+<td class="tr"><input name="member[thumb]" type="text" size="50" id="thumb" value="{$thumb}" readonly/>&nbsp;&nbsp;<span onclick="Dthumb({$moduleid},{$MOD[thumb_width]},{$MOD[thumb_height]}, $('thumb').value, true);" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview($('thumb').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="$('thumb').value='';" class="jt">[删除]</span><br/>
+<span class="f_gray">建议使用总经理照片、办公环境、LOGO等标志性图片，最佳大小为{$MOD[thumb_width]}px*{$MOD[thumb_height]}px，最佳格式为JPG</span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span>所在地区</td>
+<td class="tr">{ajax_area_select('member[areaid]', '所在地区', $areaid)}&nbsp;<span id="dareaid" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span>所属行业</td>
+<td class="tr">{ajax_category_select('member[catid]', '所属行业', $catid, 1)}&nbsp;<span id="dcatid" class="f_red"></span></td>
+</tr>
+
+<tr>
+<td class="tl">主营行业</td>
+<td class="tr"><input type="text" size="50" name="member[business]" id="business" value="{$business}"/> {$biz_select} <span class="f_gray">多个主营行业请用'|'号隔开</span></td>
+</tr>
+<tr>
+<td class="tl">经营模式</td>
+<td class="tr">
+<span id="com_mode">{$mode_check}</span> <span class="f_gray">(最多可选两种)</span></td>
+</tr>
+<tr>
+<td class="tl">公司规模</td>
+<td class="tr">{dselect($COM_SIZE, 'member[size]', '请选择规模', $size, '', 0)}</td>
+</tr>
+<tr>
+<td class="tl">注册资本</td>
+<td class="tr">{dselect($MONEY_UNIT, 'member[regunit]', '', $regunit, '', 0)} <input type="text" size="6" name="member[capital]" id="capital" value="{$capital}"/> 万</td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span>公司成立年份</td>
+<td class="tr"><input type="text" size="15" name="member[regyear]" id="regyear" value="{$regyear}"/>&nbsp;<span id="dregyear" class="f_red"></span> <span class="f_gray">(年份，如：2004)</span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span>公司注册地</td>
+<td class="tr"><input type="text" size="20" name="member[regcity]" id="regcity" value="{$regcity}"/> &nbsp;<span id="dregcity" class="f_red"></span> <span class="f_gray">(省份/城市 例如 陕西/西安)</span> </td>
+</tr>
+<tr>
+<td class="tl">销售的产品(提供的服务)</td>
+<td class="tr"><input type="text" size="50" name="member[sell]" id="sell" value="{$sell}"/> <span class="f_gray">多个产品或服务请用'|'号隔开</span></td>
+</tr>
+<tr>
+<td class="tl">采购的产品(需要的服务)</td>
+<td class="tr"><input type="text" size="50" name="member[buy]" id="buy" value="{$buy}"/> <span class="f_gray">多个产品或服务请用'|'号隔开</span></td>
+</tr>
+</tbody>
+<tbody id="Tabs1" style="display:none;">
+
+<tr>
+<td class="tl"><span class="f_red">*</span>主要经营地点</td>
+<td class="tr"><input type="text" size="40" name="member[address]" id="address" value="{$address}"/>&nbsp;<span id="daddress" class="f_red"></span> <span class="f_gray">(请填写业务部门工作地点)</span></td>
+</tr>
+
+<tr>
+<td class="tl">邮政编码</td>
+<td class="tr"><input type="text" size="8" name="member[postcode]" id="postalcode" value="{$postcode}"/></td>
+</tr>
+
+<tr>
+<td class="tl"><span class="f_red">*</span>公司电话</td>
+<td class="tr"><input type="text" size="20" name="member[telephone]" id="telephone" value="{$telephone}"/>&nbsp;<span id="dtelephone" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl">公司传真</td>
+<td class="tr"><input type="text" size="20" name="member[fax]" id="fax" value="{$fax}"/></td>
+</tr>
+<tr>
+<td class="tl">公司Email</td>
+<td class="tr"><input type="text" size="30" name="member[mail]" id="mail" value="{$mail}"/> <span class="f_gray">[公开]</span></td>
+</tr>
+<tr>
+<td class="tl">公司网址</td>
+<td class="tr"><input type="text" size="30" name="member[homepage]" id="homepage" value="{$homepage}"/></td>
+</tr>
+</tbody>
+<tbody id="Tabs2" style="display:none;">
+<tr>
+<td class="tl"><span class="f_red">*</span>公司介绍</td>
+<td class="tr"><textarea name="member[introduce]" id="introduce" class="dsn">{$introduce}</textarea>
+{deditor($moduleid, 'introduce', 'Destoon', '95%', 300)}</td>
+</tr>
+</tbody>
+<tbody id="Tabs3" style="display:none;">
+<tr>
+<td class="tl">会员名</td>
+<td class="tr f_b">{$_username}</td>
+</tr>
+<tr>
+<td class="tl">Email</td>
+<td class="tr f_b">{$_email}</td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span>真实姓名</td>
+<td class="tr"><input type="text" size="10" name="member[truename]" id="truename" value="{$truename}"/>&nbsp;<span id="dtruename" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span>性别</td>
+<td class="tr">
+<input type="radio" name="member[gender]" value="1" {if $gender==1}checked="checked"{/if}/> 先生
+<input type="radio" name="member[gender]" value="2" {if $gender==2}checked="checked"{/if}/> 女士
+</td>
+</tr>
+<tr>
+<td class="tl">部门</td>
+<td class="tr"><input type="text" size="20" name="member[department]" id="department" value="{$department}"/></td>
+</tr>
+<tr>
+<td class="tl">职位</td>
+<td class="tr"><input type="text" size="20" name="member[career]" id="career" value="{$career}"/></td>
+</tr>
+<tr>
+<td class="tl">手机号码</td>
+<td class="tr"><input type="text" size="20" name="member[mobile]" id="mobile" value="{$mobile}"/></td>
+</tr>
+<tr>
+<td class="tl">MSN</td>
+<td class="tr"><input type="text" size="20" name="member[msn]" id="msn" value="{$msn}"/></td>
+</tr>
+<tr>
+<td class="tl">QQ</td>
+<td class="tr"><input type="text" size="20" name="member[qq]" id="qq" value="{$qq}"/></td>
+</tr>
+</tbody>
+<tbody id="Tabs4" style="display:none;">
+<td class="tl">新登录密码</td>
+<td class="tr"><input type="password" size="20" name="member[password]" id="password" onblur="validator('password');"/>&nbsp;<span class="f_gray">如不更改密码,请留空</span> <span id="dpassword" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl">重复新密码</td>
+<td class="tr"><input type="password" size="20" name="member[cpassword]" id="cpassword"/>&nbsp;<span id="dcpassword" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl">现有密码</td>
+<td class="tr f_red"><input type="password" size="20" name="member[oldpassword]" id="oldpassword"/>&nbsp; 如要更改密码，需输入现有密码 <span id="doldpassword" class="f_red"></span></td>
+</tr>
+</tbody>
+<tbody id="Tabs5" style="display:none;">
+<tr>
+<td class="tl">主页横幅图片</td>
+<td class="tr f_gray"><input name="member[banner]" type="text" size="60" id="banner" value="{$banner}" readonly/>&nbsp;&nbsp;<span onclick="Dthumb({$moduleid},950,110, $('banner').value, true, 'banner');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview($('banner').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="$('banner').value='';" class="jt">[删除]</span><br/>
+将显示在公司主页最顶端，最佳大小为950px*110px</span></td>
+</tr>
+<tr>
+<td class="tl">自定义CSS</td>
+<td class="tr f_gray"><textarea name="member[css]" id="css" style="width:500px;height:100px;overflow:visible;font-family:Fixedsys">{$css}</textarea><br/>
+请不要引用外部元素，系统将自动过滤
+</td>
+</tr>
+<tr>
+<td class="tl">主页模板</td>
+<td class="tr f_gray"><a href="{$MODULE[2][linkurl]}style.php"><img src="{SKIN_PATH}homepage/{if $skin}{$skin}{else}default{/if}/thumb.gif" title="点击设置"/></a><br/><br/>&nbsp;<a href="{$MODULE[3][linkurl]}redirect.php?username={$_username}" target="_blank" class="t">预览我的主页</a></td>
+</tr>
+</tbody>
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="30"><input type="submit" name="submit" value=" 修 改 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/></td>
+</tr>
+</table>
+</form>
+{load('clear.js')}
+<script type="text/javascript">
+var vid = '';
+function validator(id) {
+	if(!$(id).value) return false;
+	vid = id;
+	makeRequest('action='+id+'&value='+$(id).value+'&userid={$userid}', '{$MOD[linkurl]}ajax.php', '_validator')
+}
+function _validator() {    
+	if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+		$('d'+vid).innerHTML = xmlHttp.responseText ? xmlHttp.responseText : '';
+	}
+}
+function check_mode(c) {
+	var mode_num = 0;
+	var e = $('com_mode').getElementsByTagName('input');	
+	for(var i=0; i<e.length; i++) {
+		if(e[i].checked) mode_num++;
+	}
+	if(mode_num > 2) {
+		confirm('最多可选两种经营模式');
+		c.checked = false;
+	}
+}
+function Dcheck() {
+	if($('password').value != '') {
+		if($('cpassword').value == '') {
+			Tab(4);
+			Dmsg('请重复输入密码。', 'cpassword');
+			return false;
+		}
+		if($('password').value != $('cpassword').value) {
+			Tab(4);
+			Dmsg('两次输入的密码不一致。', 'password');
+			return false;
+		}
+		if($('oldpassword').value == '') {
+			Tab(4);
+			Dmsg('请输入密码。', 'oldpassword');
+			return false;
+		}
+	}
+
+	if($('truename').value == '') {
+		Tab(3);
+		Dmsg('请填写真实姓名。', 'truename');
+		return false;
+	}
+
+	if($('type').value == '') {
+		Tab(0);
+		Dmsg('请选择公司类型。', 'type');
+		return false;
+	}
+	if($('areaid').value == 0) {
+		Tab(0);
+		Dmsg('请选择公司所在地。', 'areaid');
+		return false;
+	}
+	if($('catid').value == 0) {
+		Tab(0);
+		Dmsg('请选择公司所属行业。', 'catid');
+		return false;
+	}
+	if($('regyear').value == '') {
+		Tab(0);
+		Dmsg('请填写公司成立年份。', 'regyear');
+		return false;
+	}
+	if($('regcity').value == '') {
+		Tab(0);
+		Dmsg('请填写公司注册地。', 'regcity');
+		return false;
+	}
+	if($('address').value == '') {
+		Tab(1);
+		Dmsg('请填写业务部门工作地点。', 'address');
+		return false;
+	}
+	if($('telephone').value == '') {
+		Tab(1);
+		Dmsg('请填写公司电话。', 'telephone');
+		return false;
+	}
+	return true;
+}
+</script>
+<script type="text/javascript">
+s('homepage');
+{if $tab != -1}
+Tab({$tab});
+{else}
+m('Tab0');
+{/if}
+</script>
+{template 'footer',$module}

@@ -1,0 +1,25 @@
+{template 'header', $template}
+<div class="pos">当前位置：<a href="{$COM[linkurl]}">{$COM[company]}首页</a> &raquo; <a href="{$MENU[credit][1]}">{$MENU[credit][0]}</a></div>
+<div class="box">
+	<h1>{$MENU[credit][0]}</h1>
+	<table cellpadding="2" cellspacing="2" width="100%" align="center">
+	<tr bgcolor="#F1F1F1">
+	<th width="130" height="25">证书</th>
+	<th>证书名称</th>
+	<th>发证机构</th>
+	<th>发证日期</th>
+	<th>到期日期</th>
+	</tr>
+	{loop $credits $k $v}
+	<tr align="center">
+	<td title="点击查看大图 上传时间: {$v[editdate]}" style="padding:10px 0 10px 0;"><a href="{$v[image]}" target="_blank"><img src="{$v[thumb]}" width="100" height="100"/></a></td>
+	<td bgcolor="#FBFBFB">{$v[title]}</td>
+	<td>{$v[authority]}</td>
+	<td bgcolor="#FBFBFB" class="f_gray">{$v[fromdate]}</td>
+	<td class="f_gray">{$v[todate]}</td>
+	</tr>
+	{/loop}
+	</table>
+	<div class="pages">{$pages}</div>
+</div>
+{template 'footer', $template}

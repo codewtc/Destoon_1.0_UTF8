@@ -1,0 +1,27 @@
+<span onmouseover="if($('captchapng').style.display=='none') $('captchapng').style.display='';" onmouseout="checkcaptcha($('captcha').value);">
+<input name="captcha" id="captcha" type="text" size="6" onblur="checkcaptcha(this.value);"/>&nbsp;<img src="{DT_PATH}captcha.png.php?action={crypt_action('image')}" title="验证码,看不清楚?请点击刷新 &#10; 字母不区分大小写" alt="" align="absmiddle" id="captchapng" class="c_p" onclick="reloadcaptcha();" style="display:none;"/>
+<span id="ccaptcha"></span>
+</span>
+<script type="text/javascript">
+function reloadcaptcha() {
+	$('captchapng').src = '{DT_PATH}captcha.png.php?action={crypt_action('image')}&date='+new Date();
+}
+function checkcaptcha(s) {
+	if(s.length < 4) {
+		$('ccaptcha').innerHTML = '<br/><img src="'+SKPath+'image/check_error.gif" align="absmiddle"/> <span style="color:red">验证码最少4个字符</span>';
+		$('captcha').focus;
+		return;
+	}
+	makeRequest('action=captcha&captcha='+s, '{DT_PATH}ajax.php', '_checkcaptcha');
+}
+function _checkcaptcha() {    
+	if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+		if(xmlHttp.responseText == '0') {
+			$('ccaptcha').innerHTML = '';
+		} else {
+			$('captcha').focus;
+			$('ccaptcha').innerHTML = '<br/><img src="'+SKPath+'image/check_error.gif" align="absmiddle"/> <span style="color:red">验证码填写错误</span>';
+		}
+	}
+}
+</script>

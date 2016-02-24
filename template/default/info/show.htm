@@ -1,0 +1,85 @@
+{template 'header'}
+<div class="m">
+<div class="rows2_left f_l">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')} &raquo; 正文</div>
+		<h1 class="title">{$title}</h1>
+		<div class="info"><span class="f_r"><img src="{SKIN_PATH}image/zoomin.gif" width="16" height="16" alt="放大字体" class="c_p" onclick="fontZoom('+');"/>&nbsp;&nbsp;<img src="{SKIN_PATH}image/zoomout.gif" width="16" height="16"  alt="缩小字体" class="c_p" onclick="fontZoom('-');"/></span>
+		更新日期：{$editdate}
+		&nbsp;&nbsp;浏览次数：<span id="hits">{$hits}</span></div>
+		<div class="content" id="content">{$content}</div>
+		<div class="b10">&nbsp;</div>
+		<form method="post" action="{$MODULE[2][linkurl]}sendmail.php" name="sendmail" id="sendmail" target="_blank">
+		<input type="hidden" name="itemid" value="{$itemid}"/> 
+		<input type="hidden" name="title" value="{$title}"/> 
+		<input type="hidden" name="linkurl" value="{linkurl($MOD[linkurl].$linkurl, 1)}"/> 
+		</form>
+		<center>
+		[ <a href="{$MOD[linkurl]}search.php">{$MOD[name]}搜索</a> ]&nbsp;
+		[ <a href="javascript:addFav();">加入收藏</a> ]&nbsp;
+		[ <a href="javascript:$('sendmail').submit();void(0);">告诉好友</a> ]&nbsp;
+		[ <a href="javascript:Print();">打印本文</a> ]&nbsp;
+		[ <a href="javascript:window.close()">关闭窗口</a> ]&nbsp;
+		[ <a href="javascript:window.scrollTo(0,0);">返回顶部</a> ]
+		</center>
+		<br/>
+		<div class="b10">&nbsp;</div>
+		<div class="left_head"><span class="f_r px12"><a href="{$MOD[linkurl]}{$CATEGORY[$catid][linkurl]}">更多..</a>&nbsp;</span>同类{$MOD[name]}</div>
+		<div class="related">
+		<!--{tag("moduleid=$moduleid&table=info_$moduleid&length=44&catid=$catid&condition=status=3&pagesize=8&order=".$MOD[order]."&cols=2&template=list-table", -2)}-->
+		</div>
+		<br/>
+	</div>
+</div>
+<div class="rows_nav f_l">&nbsp;</div>
+	<div class="rows2_right f_l">
+		<div class="contact_head">联系方式</div>
+		<div class="contact_body">
+			<ul>
+				<li style="padding-top:3px;"><span>联系人</span>{$name}
+					{if $msn}&nbsp;<a href="msnim:chat?contact={$msn}"><img src="{SKIN_PATH}image/msnchat.gif" width="25" height="17" title="点击MSN交谈/留言" alt=""/></a>{/if}
+					{if $qq}&nbsp;<a href="tencent://message/?uin={$qq}&Site={$DT[sitename]}&Menu=yes"><img src="http://wpa.qq.com/pa?p=1:{$qq}:17" width="25" height="17" title="点击QQ交谈/留言" alt=""/></a>{/if}</li>
+				<li><span>会员</span><a href="{$MODULE[3][linkurl]}redirect.php?username={$username}" target="_blank">[公司主页]</a> <a href="{$MODULE[2][linkurl]}message.php?action=send&touser={$username}">[发送信件]</a> <a href="{$MODULE[2][linkurl]}friend.php?action=add&username={$username}">[加为商友]</a></li>
+				{if $email}<li><span>邮件</span><a href="mailto:{$email}">{$email}</a></li>{/if}
+				{if $telephone}<li><span>电话</span>{$telephone}</li>{/if}
+				{if $fax}<li><span>传真</span>{$fax}</li>{/if}
+				<li><span>所在地</span>{area_pos($areaid, '&nbsp;')}</li>
+				{if $address}<li><span>地址</span>{$address}</li>{/if}
+			</ul>
+		</div>
+		<div class="b8 c_b">&nbsp;</div>
+		<div class="box_head">按分类浏览</div>
+		<div class="box_body">
+		<table width="100%" cellpadding="3">
+		{loop $maincat $k $v}
+		{if $k%3==0}<tr>{/if}
+		<td><a href="{$MOD[linkurl]}{$v[linkurl]}">{$v[catname]}</a> <span class="f_gray px10">({$ITEMS[$v[catid]]})</span></td>
+		{if $k%3==2}</tr>{/if}
+		{/loop}
+		</table>
+		</div>
+		<div class="b8 c_b">&nbsp;</div>
+		<div class="box_head">{$MOD[name]}搜索</div>
+		<div class="box_body">
+		<form action="{$MOD[linkurl]}search.php">
+		<input type="text" size="25" name="kw"/> 
+		<input type="submit" value="搜索" class="btn"/>
+		<input type="button" value="高级" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+		</form>
+		</div>
+		<div class="b8 c_b">&nbsp;</div>
+		<div class="box_head">该企业最新{$MOD[name]}</div>
+		<div class="box_body f_gray">
+		<!--{tag("moduleid=$moduleid&table=info_$moduleid&condition=status=3 and username='$username'&pagesize=10&order=".$MOD[order]."&template=list-info")}-->
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+window.onload = function(){
+	var Imgs = $("content").getElementsByTagName("img");
+	for(var i=0;i<Imgs.length;i++)	{
+		ImgZoom(Imgs[i], {$MOD[max_width]});
+	}
+}
+</script>
+{template 'footer'}

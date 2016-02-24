@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html;charset={$CFG[charset]}" />
+<title>{if $head_title}{$head_title} - {/if}{$COM[company]} - Powered By Destoon</title>
+<meta name="keywords" content="{$head_keywords}" />
+<meta name="description" content="{$head_description}" />
+<meta name="author" content="Destoon B2B System. www.destoon.com" />
+<link rel="stylesheet" type="text/css" href="{SKIN_PATH}homepage/{$skin}/style.css" />
+<script type="text/javascript">
+var DTPath = '{DT_PATH}';
+function $(ID){return document.getElementById(ID);}
+</script>
+{if $COM[css]}
+<style type="text/css">
+{$COM[css]}
+</style>
+{/if}
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="main">
+<tr>
+<td height="110" background="{if $COM[banner]}{$COM[banner]}{else}{SKIN_PATH}homepage/{$skin}/banner.jpg{/if}" class="banner" valign="top">
+<div>
+{if $COM[vip]}
+<img src="{SKIN_PATH}image/vip.gif" align="absmiddle"/> {VIP} 第 <em>{$COM[year]}</em> 年&nbsp;&nbsp;<img src="{SKIN_PATH}image/vip_{$COM[vip]}.gif" align="absmiddle"/> 
+{else}
+<img src="{SKIN_PATH}image/homepage.gif" align="absmiddle"/> 普通会员
+{/if}
+</div>
+<h1>{$COM[company]}</h1>
+</td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" class="main">
+<tr>
+<td class="left" valign="top">
+{loop $MENU $i $m}
+<div><a href="{$m[1]}"{if $menuon==$i} class="f_b" style="text-decoration:none;"{/if}>{$m[0]}</a></div>
+{/loop}
+</td>
+<td class="right" valign="top">

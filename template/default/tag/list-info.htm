@@ -1,0 +1,6 @@
+<ul>
+{loop $tags $i $t}
+<li><span class="f_r">[{area_pos($t[areaid], '/', 1)}]{if $datetype}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{timetodate($t[edittime], $datetype)}{/if}</span>&#8226; <a href="{$t[linkurl]}"{if $target} target="{$target}"{/if} title="{$t[title]}">{$t[stitle]}</a></li>
+{/loop}
+</ul>
+{if $showpage && $pages}<div class="pages">{$pages}</div>{/if}

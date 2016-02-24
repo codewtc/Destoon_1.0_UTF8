@@ -1,0 +1,21 @@
+{template 'header', $template}
+<div class="pos">当前位置：<a href="{$COM[linkurl]}">{$COM[company]}首页</a> &raquo; <a href="{$MENU[buy][1]}">{$MENU[buy][0]}</a></div>
+<div class="box">
+	<h1>{$MENU[buy][0]}</h1>
+	<table cellpadding="2" cellspacing="1" width="100%" align="center">
+	<tr bgcolor="#F1F1F1">
+	<th height="25">标 题</th>
+	<th width="110">添加时间</th>
+	<th width="110">到期时间</th>
+	</tr>
+	{loop $buys $k $v}
+	<tr align="center"{if $k%2==1} bgcolor="#FBFBFB"{/if}>
+	<td align="left" class="px13" height="25">&middot;<a href="{$v[linkurl]}" target="_blank">{$v[title]}</a></td>
+	<td>{timetodate($v[addtime], 3)}</td>
+	<td>{timetodate($v[totime], 3)}</td>
+	</tr>
+	{/loop}
+	</table>
+	<div class="pages">{$pages}</div>
+</div>
+{template 'footer', $template}

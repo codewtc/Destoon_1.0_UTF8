@@ -1,0 +1,75 @@
+{template 'header', $template}
+<div class="pos">当前位置：<a href="{$COM[linkurl]}">{$COM[company]}首页</a> &raquo; <a href="{$MENU[contact][1]}">{$MENU[contact][0]}</a></div>
+<div class="box">
+	<h1>{$MENU[contact][0]}</h1>
+	<div class="px13 lh18">
+	<table width="98%" cellpadding="3" cellspacing="3" align="center">
+	<tr>
+	<td width="80">公司名称：</td>
+	<td>{$COM[company]}</td>
+	</tr>
+	<tr>
+	<td>公司地址：</td>
+	<td>{$COM[address]}</td>
+	</tr>
+	{if $COM[postcode]}
+	<tr>
+	<td>邮政编码：</td>
+	<td>{$COM[postcode]}</td>
+	</tr>
+	{/if}
+	<tr>
+	<td>公司电话：</td>
+	<td>{$COM[telephone]}</td>
+	</tr>
+	{if $COM[fax]}
+	<tr>
+	<td>公司传真：</td>
+	<td>{$COM[fax]}</td>
+	</tr>
+	{/if}
+	{if $COM[mail]}
+	<tr>
+	<td>公司Email：</td>
+	<td><a href="mailto:{$COM[email]}">{$COM[email]}</a></td>
+	</tr>
+	{/if}
+	<tr>
+	<td>公司网址：</td>
+	<td>{if $COM[homepage]}<a href="{$COM[homepage]}" target="_blank">{$COM[homepage]}</a><br/>{/if}
+	<a href="{$COM[linkurl]}" target="_blank">{$COM[linkurl]}</a></td>
+	</tr>
+	{if $COM[truename]}
+	<tr>
+	<td>联 系 人：</td>
+	<td>{$COM[truename]} （{if $COM[gender]==1}先生{else}女士{/if}）</td>
+	</tr>
+	{/if}
+	{if $COM[department]}
+	<tr>
+	<td>部门(职位)：</td>
+	<td>{$COM[department]}{if $COM[career]} （{$COM[career]}）{/if}</td>
+	</tr>
+	{/if}
+	{if $COM[mobile]}
+	<tr>
+	<td>手机号码：</td>
+	<td>{$COM[mobile]}</td>
+	</tr>
+	{/if}
+	{if $COM[qq]}
+	<tr>
+	<td>QQ：</td>
+	<td><a href="tencent://message/?uin={$COM[qq]}&Site={$COM[company]}&Menu=yes"><img src="http://wpa.qq.com/pa?p=1:{$COM[qq]}:17" width="25" height="17" title="点击QQ交谈/留言" alt=""/></a> {$COM[qq]}</td>
+	</tr>
+	{/if}
+	{if $COM[msn]}
+	<tr>
+	<td>MSN：</td>
+	<td><a href="msnim:chat?contact={$COM[msn]}"><img src="{SKIN_PATH}image/msnchat.gif" width="25" height="17" title="点击MSN交谈/留言" alt=""/></a> {$COM[msn]}</td>
+	</tr>
+	{/if}
+	</table>
+	</div>
+</div>
+{template 'footer', $template}

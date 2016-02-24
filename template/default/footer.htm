@@ -1,0 +1,19 @@
+<div class="m b8">&nbsp;</div>
+<div class="m">
+	<div class="footer">
+	   <a href="{DT_PATH}">网站首页</a>
+	   <!--{tag("table=webpage&condition=item=1&order=listorder desc,itemid desc&template=list-webpage")}-->
+	   | <a href="{$MODULE[3][linkurl]}link.php">友情链接</a> 
+	   | <a href="{$MODULE[3][linkurl]}ad.php">广告服务</a> 
+	   | <a href="{$MODULE[3][linkurl]}feed.php">RSS订阅</a> 
+		{if $DT[icpno]}
+		 | <a href="http://www.miibeian.gov.cn" target="_blank">{$DT[icpno]}</a>
+		{/if}
+	 <div>{$DT[copyright]}</div>
+	 <div id="powered"><a href="http://www.destoon.com" target="_blank"><strong>Powered by Destoon {DT_VERSION}</strong></a></div>
+	</div>
+</div>
+<script type="text/javascript" src="{DT_PATH}javascript/gb2big5.js"></script>
+<script type="text/javascript" src="{DT_PATH}task.js.php?{$destoon_task}"></script>
+</body>
+</html>

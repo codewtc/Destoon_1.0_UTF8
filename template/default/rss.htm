@@ -1,0 +1,17 @@
+{php echo '<?xml version="1.0" encoding="'.$CFG[charset].'"?>';}
+<rss version="2.0">
+<channel>
+<title>{$rss_title}</title>
+<link>{$rss_link}</link>
+<generator>Destoon B2B System. www.destoon.com</generator>
+<pubDate>{timetodate($DT_TIME)}</pubDate>
+{loop $rss $rs}
+<item id="{$rs[itemid]}">
+<title><![CDATA[{$rs[title]}]]></title>
+<link>{$rs[linkurl]}</link>
+<description><![CDATA[{$rs[description]}]]></description>
+<pubDate>{$rs[pubdate]}</pubDate>
+</item>
+{/loop}
+</channel>
+</rss>

@@ -1,0 +1,148 @@
+{template 'header'}
+<div class="m">
+<div class="rows2_left f_l">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')} &raquo; 正文</div>
+		<h1 class="title">{$title}</h1>
+		<div class="info"><span class="f_r"><img src="{SKIN_PATH}image/zoomin.gif" width="16" height="16" alt="放大字体" class="c_p" onclick="fontZoom('+');"/>&nbsp;&nbsp;<img src="{SKIN_PATH}image/zoomout.gif" width="16" height="16"  alt="缩小字体" class="c_p" onclick="fontZoom('-');"/></span>
+		发布日期：{$adddate}
+		&nbsp;&nbsp;浏览次数：<span id="hits">{$hits}</span>
+		&nbsp;&nbsp;状态：<img src="{SKIN_PATH}image/exh_p{$process}.gif" id="process" alt="状态" align="absmiddle"/>
+		</div>
+		<div class="content" id="content">
+			<table cellspacing="1" cellpadding="0" width="100%" class="ctb">
+			<tr>
+			<td class="ltd">展会日期</td>
+			<td class="rtd">{$fromtime} 至 {$totime}</td>
+			<td class="ltd">展出城市</td>
+			<td class="rtd">{$city}</td>
+			</tr>
+			<tr>
+			<td class="ltd">展出地址</td>
+			<td class="rtd">{$address}</td>
+			<td class="ltd">展馆名称</td>
+			<td class="rtd">{$hallname}</td>
+			</tr>
+			<tr>
+			<td class="ltd">展会说明</td>
+			<td class="rtd" colspan="3">{$content}</td>
+			</tr>
+			{if $remark}
+			<tr>
+			<td class="ltd">备注</td>
+			<td class="rtd" colspan="3">{$remark}</td>
+			</tr>
+			{/if}
+			</table>
+			<br/>
+			<table cellspacing="1" cellpadding="0" width="100%" class="ctb">
+			<tr>
+			<td class="ltd">主办单位</td>
+			<td class="rtd">{$sponsor}</td>
+			</tr>
+			{if $undertaker}
+			<tr>
+			<td class="ltd">承办单位</td>
+			<td class="rtd">{$undertaker}</td>
+			</tr>
+			{/if}
+			<tr>
+			<td class="ltd">联系人</td>
+			<td class="rtd">{$name}</td>
+			</tr>
+			{if $addr}
+			<tr>
+			<td class="ltd">地址</td>
+			<td class="rtd">{$addr}</td>
+			</tr>
+			{/if}
+			{if $mobile}
+			<tr>
+			<td class="ltd">手机</td>
+			<td class="rtd">{$mobile}</td>
+			</tr>
+			{/if}
+			<tr>
+			<td class="ltd">电话</td>
+			<td class="rtd">{$telephone}</td>
+			</tr>
+			{if $fax}
+			<tr>
+			<td class="ltd">传真</td>
+			<td class="rtd">{$fax}</td>
+			</tr>
+			{/if}
+			{if $email}
+			<tr>
+			<td class="ltd">Email</td>
+			<td class="rtd"><a href="mailto:{$email}" target="_blank">{$email}</a></td>
+			</tr>
+			{/if}
+			{if $msn}
+			<tr>
+			<td class="ltd">MSN</td>
+			<td class="rtd"><a href="msnim:chat?contact={$msn}">{$msn}</a></td>
+			</tr>
+			{/if}
+			{if $qq}
+			<tr>
+			<td class="ltd">QQ</td>
+			<td class="rtd"><a href="tencent://message/?uin={$qq}&Site={$title}&Menu=yes"><img src="http://wpa.qq.com/pa?p=1:{$qq}:17" width="25" height="17" title="点击QQ交谈/留言" alt=""/> {$qq}</a></td>
+			</tr>
+			{/if}
+			</table>
+		</div>
+		<div class="b10">&nbsp;</div>
+		<form method="post" action="{$MODULE[2][linkurl]}sendmail.php" name="sendmail" id="sendmail" target="_blank">
+		<input type="hidden" name="itemid" value="{$itemid}"/> 
+		<input type="hidden" name="title" value="{$title}"/> 
+		<input type="hidden" name="linkurl" value="{linkurl($MOD[linkurl].$linkurl, 1)}"/> 
+		</form>
+		<center>
+		[ <a href="{$MOD[linkurl]}search.php">{$MOD[name]}搜索</a> ]&nbsp;
+		[ <a href="javascript:addFav();">加入收藏</a> ]&nbsp;
+		[ <a href="javascript:$('sendmail').submit();void(0);">告诉好友</a> ]&nbsp;
+		[ <a href="javascript:Print();">打印本文</a> ]&nbsp;
+		[ <a href="javascript:window.close()">关闭窗口</a> ]&nbsp;
+		[ <a href="javascript:window.scrollTo(0,0);">返回顶部</a> ]
+		</center>
+		<br/>
+	</div>
+</div>
+<div class="rows_nav f_l">&nbsp;</div>
+	<div class="rows2_right f_l">
+		<div class="box_head">按分类浏览</div>
+		<div class="box_body">
+		<table width="100%" cellpadding="3">
+		{loop $maincat $k $v}
+		{if $k%2==0}<tr>{/if}
+		<td><a href="{$MOD[linkurl]}{$v[linkurl]}">{$v[catname]}</a> <span class="f_gray px10">({$ITEMS[$v[catid]]})</span></td>
+		{if $k%2==1}</tr>{/if}
+		{/loop}
+		</table>
+		</div>
+		<div class="b8 c_b">&nbsp;</div>
+		<div class="box_head">{$MOD[name]}搜索</div>
+		<div class="box_body">
+		<form action="{$MOD[linkurl]}search.php">
+		<input type="text" size="25" name="kw"/> 
+		<input type="submit" value="搜索" class="btn"/>
+		<input type="button" value="高级" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+		</form>
+		</div>
+		<div class="b8 c_b">&nbsp;</div>
+		<div class="box_head">最新{$MOD[name]}</div>
+		<div class="box_body">
+		<!--{tag("moduleid=$moduleid&table=exhibit&condition=status=3&order=".$MOD[order]."&pagesize=10")}-->
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+window.onload = function(){
+	var Imgs = $("content").getElementsByTagName("img");
+	for(var i=0;i<Imgs.length;i++)	{
+		ImgZoom(Imgs[i], {$MOD[max_width]});
+	}
+}
+</script>
+{template 'footer'}

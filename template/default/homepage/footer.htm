@@ -1,0 +1,30 @@
+</td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" class="main">
+<tr>
+<td class="left" valign="top">&nbsp;</td>
+<td class="right" valign="top">
+      <table width="100%">
+        <tr>
+          <td width="40" align="center"><img src="{SKIN_PATH}image/notice.gif" width="24" height="24" alt=""/></td>
+          <td class="lh18"><strong>免责声明：</strong>以上所展示的信息由企业自行提供，内容的真实性、准确性和合法性由发布企业负责。{$DT[sitename]}对此不承担任何保证责任。<br />
+          <strong>友情提醒：</strong>为保障您的利益，建议优先选择 <span class="f_orange">{VIP}会员</span></td>
+        </tr>
+      </table>
+</td>
+</tr>
+</table>
+<div class="main">
+	<div class="footer">
+	{loop $MENU $i $m}
+	{if $i != 'index'} | {/if}<a href="{$m[1]}">{$m[0]}</a>
+	{/loop}
+	| <a id="StranLink">繁体中文</a>
+	<br/>
+	{$COM[company]} 版权所有&nbsp;&nbsp;<a href="{$MODULE[2][linkurl]}">管理员入口</a>&nbsp;&nbsp;技术支持：<a href="{DT_PATH}" target="_blank">{$DT[sitename]}</a><br/>
+	</div>
+</div>
+<script type="text/javascript" src="{DT_PATH}javascript/gb2big5.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{template 'header'}
+<div class="m">
+<div class="rows2_left f_l">
+	<div class="left_box">
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')} &raquo; 正文</div>
+		<h1 class="title">{$title}</h1>
+		<div class="info"><span class="f_r"><img src="{SKIN_PATH}image/zoomin.gif" width="16" height="16" alt="放大字体" class="c_p" onclick="fontZoom('+');"/>&nbsp;&nbsp;<img src="{SKIN_PATH}image/zoomout.gif" width="16" height="16"  alt="缩小字体" class="c_p" onclick="fontZoom('-');"/></span>
+		发布日期：{$adddate}
+		{if $copyfrom}&nbsp;&nbsp;来源：<a href="{$fromurl}" target="_blank">{$copyfrom}</a>{/if}
+		{if $author}&nbsp;&nbsp;作者：{$author}{/if}
+		&nbsp;&nbsp;浏览次数：<span id="hits">{$hits}</span>	
+		</div>
+		{if $introduce}<div class="introduce">{$introduce}</div>{/if}
+		<div class="content" id="content">{$content}</div>
+		{if $pages}<div class="pages">{$pages}</div>{/if}
+		<div class="b10">&nbsp;</div>
+		<form method="post" action="{$MODULE[2][linkurl]}sendmail.php" name="sendmail" id="sendmail" target="_blank">
+		<input type="hidden" name="itemid" value="{$itemid}"/> 
+		<input type="hidden" name="title" value="{$title}"/> 
+		<input type="hidden" name="linkurl" value="{linkurl($MOD[linkurl].$linkurl, 1)}"/> 
+		</form>
+		<center>
+		[ <a href="{$MOD[linkurl]}search.php">{$MOD[name]}搜索</a> ]&nbsp;
+		[ <a href="javascript:addFav();">加入收藏</a> ]&nbsp;
+		[ <a href="javascript:$('sendmail').submit();void(0);">告诉好友</a> ]&nbsp;
+		[ <a href="javascript:Print();">打印本文</a> ]&nbsp;
+		[ <a href="javascript:window.close()">关闭窗口</a> ]&nbsp;
+		[ <a href="javascript:window.scrollTo(0,0);">返回顶部</a> ]
+		</center>
+		<br/>
+		<div class="b10">&nbsp;</div>
+		<div class="left_head">相关{$MOD[name]}</div>
+		<div class="related">
+		<!--{tag("moduleid=$moduleid&table=article_$moduleid&length=44&condition=status=3 and keyword like '%$keyword%'&pagesize=8&order=".$MOD[order]."&cols=2&template=list-table", -2)}-->
+		</div>
+		<div class="left_head">最新图片</div>
+		<div class="thumb"><!--{tag("moduleid=$moduleid&table=article_$moduleid&length=20&condition=status=3 and thumb!='' and level=0&pagesize=4&order=".$MOD[order]."&width=130&height=100&cols=4&template=thumb-table")}--></div>
+		<br/>
+	</div>
+</div>
+<div class="rows_nav f_l">&nbsp;</div>
+<div class="rows2_right f_l">
+	<div class="box_head">推荐图文</div>
+	<div class="box_body thumb"><!--{tag("moduleid=$moduleid&table=article_$moduleid&length=20&condition=status=3 and level=3&catid=$catid&pagesize=4&order=".$MOD[order]."&width=120&height=90&cols=2&template=thumb-table")}--></div>
+	<div class="b8 c_b"> </div>
+	<div class="box_head">{$MOD[name]}搜索</div>
+	<div class="box_body">
+	<form action="{$MOD[linkurl]}search.php">
+	<input type="text" size="25" name="kw"/> 
+	<input type="submit" value="搜索" class="btn"/>
+	<input type="button" value="高级" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+	</form>
+	</div>
+	<div class="b8 c_b"> </div>
+	<div class="box_head">推荐文章</div>
+	<div class="box_body">	<!--{tag("moduleid=$moduleid&table=article_$moduleid&condition=status=3 and level=1&catid=$catid&order=".$MOD[order]."&pagesize=10")}-->
+	</div>
+	<div class="b8 c_b"> </div>
+	<div class="box_head">点击排行</div>
+	<div class="box_body">
+	<!--{tag("moduleid=$moduleid&table=article_$moduleid&condition=status=3 and addtime>$DT_TIME-30*24*3600&order=hits desc&pagesize=10", -1)}-->
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+window.onload = function(){
+	var Imgs = $("content").getElementsByTagName("img");
+	for(var i=0;i<Imgs.length;i++)	{
+		ImgZoom(Imgs[i], {$MOD[max_width]});
+	}
+}
+</script>
+{template 'footer'}

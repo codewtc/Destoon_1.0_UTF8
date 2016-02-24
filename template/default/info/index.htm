@@ -1,0 +1,49 @@
+{template 'header'}
+<div class="m">
+	<div class="rows2_left f_l">
+		<div class="subcat info_rec">
+			<div><span class="f_r"><a href="{$MODULE[2][linkurl]}my.php?action=add&mid={$moduleid}" class="w">发布信息..</a></span><strong>{$MOD[name]}</strong></div>
+			<!--{tag("moduleid=$moduleid&table=info_$moduleid&length=20&condition=status=3 and thumb!='' and level>0&pagesize=8&order=".$MOD[order]."&width=120&height=90&cols=4&template=thumb-table")}-->
+		</div>
+	{loop $maincat $i $c}
+		<div class="subcat">
+			<div><span class="f_r"><a href="{$MOD[linkurl]}{$c[linkurl]}" class="w">更多..</a></span><strong>{$c[catname]}</strong></div>				<!--{tag("moduleid=$moduleid&table=info_$moduleid&condition=status=3&catid=".$c[catid]."&length=50&pagesize=10&order=".$MOD[order]."&datetype=3&template=list-info")}-->
+		</div>
+	{/loop}
+	</div>
+	<div class="rows_nav f_l">&nbsp;</div>
+	<div class="rows2_right f_l">
+		<div class="box_head">按分类浏览</div>
+		<div class="box_body">
+		<table width="100%" cellpadding="3">
+		{loop $maincat $k $v}
+		{if $k%2==0}<tr>{/if}
+		<td width="25%"><a href="{$MOD[linkurl]}{$v[linkurl]}">{$v[catname]}</a> <span class="f_gray px10">({$ITEMS[$v[catid]]})</span></td>
+		{if $k%2==1}</tr>{/if}
+		{/loop}
+		</table>
+		</div>
+		<div class="b8 c_b">&nbsp;</div>
+		<div class="box_head">按地区浏览</div>
+		<div class="box_body">
+		{php $mainarea = get_childarea(0, $AREA)}
+		<table width="100%" cellpadding="3">
+		{loop $mainarea $k $v}
+		{if $k%4==0}<tr>{/if}
+		<td><a href="{$MOD[linkurl]}{rewrite('search.php?areaid='.$v['areaid'])}">{$v[areaname]}</a></td>
+		{if $k%4==3}</tr>{/if}
+		{/loop}
+		</table>
+		</div>
+		<div class="b8 c_b">&nbsp;</div>
+		<div class="box_head">{$MOD[name]}搜索</div>
+		<div class="box_body">
+		<form action="{$MOD[linkurl]}search.php">
+		<input type="text" size="25" name="kw"/> 
+		<input type="submit" value="搜索" class="btn"/>
+		<input type="button" value="高级" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+		</form>
+		</div>
+	</div>
+</div>
+{template 'footer'}

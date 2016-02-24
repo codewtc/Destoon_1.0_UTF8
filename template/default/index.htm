@@ -1,0 +1,174 @@
+{template 'header'}
+{load('index.css')}
+<div class="m" id="show_button"></div>
+<div class="m b8">&nbsp;</div>
+<div class="m">
+	<div class="f_l" style="width:300px;">
+		<div class="box_head"><span class="f_r"> </span><a href="{$MODULE[3][linkurl]}announce.php"><strong>公告栏</strong></a></div>
+		<div class="box_body f_gray">
+		<!--{tag("moduleid=3&table=announce&condition=1&length=40&pagesize=3&datetype=2&target=_blank&order=listorder desc,addtime desc")}-->
+		</div>
+		<div class="b8">&nbsp;</div>
+
+		<div class="box_head"><span class="f_r"> </span><a href="{$MODULE[9][linkurl]}"><strong>行业资讯</strong></a></div>
+		<div class="box_body">
+		<div class="headline">
+		<!--{tag("moduleid=9&table=article_9&condition=status=3 and level=4&order=addtime desc&pagesize=1&target=_blank&template=list-hl")}-->
+		</div>
+		<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+		<td valign="top" width="105"><!--{tag("moduleid=9&table=article_9&length=16&condition=status=3 and level=3&pagesize=1&target=_blank&order=addtime desc&width=100&height=80&cols=1&template=thumb-table")}--></td>
+		<td valign="top"><!--{tag("moduleid=9&table=article_9&condition=status=3 and level=1&pagesize=5&order=addtime desc&target=_blank")}--></td>
+		</tr>
+		</table>
+		<div class="f_gray" style="border-top:#C0C0C0 1px dotted;padding:5px 5px 0 5px;">
+		<!--{tag("moduleid=9&table=article_9&length=40&condition=status=3&pagesize=10&datetype=2&order=addtime desc&target=_blank")}--></div>
+		</div>
+		<div class="b8">&nbsp;</div>
+		
+		<div class="box_head"><span class="f_r"> </span><a href="{$MODULE[10][linkurl]}"><strong>招商代理</strong></a></div>
+		<div class="box_body f_gray">	<!--{tag("moduleid=10&table=info_10&length=40&condition=status=3&pagesize=10&datetype=2&order=listorder desc,addtime desc&target=_blank")}-->
+		</div>
+		<div class="b8">&nbsp;</div>
+		
+		<div class="box_head"><span class="f_r"> </span><a href="{$MODULE[8][linkurl]}"><strong>最新展会</strong></a></div>
+		<div class="box_body f_gray">	<!--{tag("moduleid=8&table=exhibit&length=16&condition=status=3 and thumb!=''&pagesize=3&order=addtime desc&width=80&height=60&cols=3&template=thumb-table&target=_blank")}-->
+		<div style="border-top:#C0C0C0 1px dotted;padding:5px 5px 0 5px;">	<!--{tag("moduleid=8&table=exhibit&length=40&condition=status=3 and thumb=''&pagesize=10&datetype=2&order=addtime desc&target=_blank")}-->
+		</div>
+		</div>
+		<div class="b8">&nbsp;</div>
+
+	</div>
+	<div class="f_l" style="width:8px;">&nbsp;</div>
+	<div class="f_l" style="width:652px;">
+		<table width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+		<td width="400" valign="top" id="show_player"></td>
+		<td>&nbsp;</td>
+		<td width="244" valign="top">
+			<div class="ivip_head"><span class="f_r"><a href="{$MODULE[2][linkurl]}vip.php">我如何加入？</a>&nbsp;&nbsp;</span><div><a href="{$MODULE[4][linkurl]}" class="w"><strong>{VIP}会员</strong></a></div></div>
+			<div class="ivip_body">
+				<div id="ivip_0" style="height:120px;overflow:hidden;">
+				<div id="ivip_1">
+				<!--{tag("moduleid=4&table=company&condition=vip>0&length=40&pagesize=20&order=fromtime desc&template=list-com")}-->
+				</div>
+				</div>
+			</div>
+		</td>
+		</tr>
+		</table>
+		<div class="b8 c_b"></div>
+		<div class="ibox">
+			<table width="100%" cellspacing="8" cellpadding="0">
+			<tr>
+			<td class="ibox_head"><span class="f_r c_p"><img src="{SKIN_PATH}image/pageup.gif" title="上一页" alt="" onclick="ipage('sell', '-');"/>&nbsp;<img src="{SKIN_PATH}image/pagedn.gif" title="下一页" alt="" onclick="ipage('sell', '+');"/></span><a href="{$MODULE[5][linkurl]}"><strong>最新供应信息</strong></a></td>
+			<td class="ibox_head"><span class="f_r c_p"><img src="{SKIN_PATH}image/pageup.gif" title="上一页" alt="" onclick="ipage('buy', '-');"/>&nbsp;<img src="{SKIN_PATH}image/pagedn.gif" title="下一页" alt="" onclick="ipage('buy', '+');"/></span><a href="{$MODULE[6][linkurl]}"><strong>最新求购信息</strong></a></td>
+			</tr>
+			<tr>
+			<td valign="top" class="ibox_body" id="isell"><!--{tag("moduleid=5&table=sell&length=40&condition=status=3&pagesize=6&datetype=2&order=addtime desc&template=list-idx")}--></td>
+			<td valign="top" class="ibox_body" id="ibuy"><!--{tag("moduleid=6&table=buy&length=40&condition=status=3&pagesize=6&datetype=2&order=addtime desc&template=list-idx")}--></td>
+			</tr>
+			</table>
+		</div>
+		<div class="b8 c_b"></div>
+		<!--最新产品-->
+		<div>
+			<table width="652" cellspacing="0" cellpadding="0">
+			<tr>
+			<td width="22"><a href="{$MODULE[7][linkurl]}"><img src="{SKIN_PATH}image/iproduct.gif" width="22" height="125" alt="产品展示"/></a></td>
+			<td width="22"><img src="{SKIN_PATH}image/iproduct_left.gif" width="22" height="125" title="上一页" alt="" class="c_p" onclick="ipage('product', '-');" onmouseover="this.src='{SKIN_PATH}image/iproduct_left_on.gif';" onmouseout="this.src='{SKIN_PATH}image/iproduct_left.gif';"/></td>
+			<td width="586" class="iproduct" id="iproduct">
+			<!--{tag("moduleid=7&table=product&length=14&condition=status=3 and thumb!=''&pagesize=6&order=addtime desc&width=80&height=80&cols=6&target=_blank&template=thumb-table")}-->
+			</td>		
+			<td width="22"><img src="{SKIN_PATH}image/iproduct_right.gif" width="22" height="125" title="下一页" alt="" class="c_p" onclick="ipage('product', '+');" onmouseover="this.src='{SKIN_PATH}image/iproduct_right_on.gif';" onmouseout="this.src='{SKIN_PATH}image/iproduct_right.gif';" /></td>
+			</tr>
+			</table>
+		</div>
+		<div class="b8"></div>
+		<!--行业分类-->
+		<div class="icatalog_menu">
+			<div class="f_r"><a href="{$MODULE[2][linkurl]}my.php?action=add&mid=5" target="_blank" id="iadd"><img src="{SKIN_PATH}image/btn_add.gif" width="81" height="20" title="发布信息" alt="" onmouseover="this.src='{SKIN_PATH}image/btn_add_on.gif';" onmouseout="this.src='{SKIN_PATH}image/btn_add.gif';"/></a></div>
+			<div>
+				<ul>
+					<li id="icatalog_0" class="icatalog_on" onclick="catalog(0);">供应</li>
+					<li id="icatalog_1" class="icatalog_li" onclick="catalog(1);">求购</li>
+					<li id="icatalog_2" class="icatalog_li" onclick="catalog(2);">产品</li>
+					<li id="icatalog_3" class="icatalog_li" onclick="catalog(3);">公司</li>
+				</ul>
+			</div>
+		</div>
+		<div class="icatalog_letter">
+			<div>拼音索引</div>
+			<ul>
+			{loop $LETTER $l}
+				<li id="index_{$l}" class="icatalog_letter_li" onmouseover="index_timer('{$l}');" onmouseout="index_out();">{$l}</li>
+			{/loop}
+			</ul>
+		</div>
+		<div class="dsn" id="catalog_index"></div>
+		<div class="icatalog c_b" id="icatalog">
+		<table width="100%" cellspacing="0">
+		{php $child = get_maincat(0, $CATEGORY);}
+		{loop $child $i $c}
+		{if $i%2==0}<tr{if $i%4==2} bgcolor="#FAFAFA"{/if}>{/if}
+		<td valign="top" width="50%">
+		<h1><a href="{$MODULE[5][linkurl]}{$c[linkurl]}" target="_blank"><strong>{set_style($c[catname], $c[style])}</strong></a></h1>
+		{if $c[child]}
+		{php $sub = get_maincat($c[catid], $CATEGORY);}
+			{loop $sub $j $s}
+			<a href="{$MODULE[5][linkurl]}{$s[linkurl]}" target="_blank">{set_style($s[catname], $s[style])}</a> | {if $j%4==3}<br/>{/if}
+			{/loop}
+		{/if}
+		</td>
+		{if $i%2==1}</tr>{/if}
+		{/loop}
+		</table>
+		</div>
+	</div>
+</div>
+<div class="m">
+	<div class="b8">&nbsp;</div>
+	<div class="ilink">
+	<a href="{$MODULE[3][linkurl]}link.php"><strong>友情链接</strong></a>
+	<!--{tag("table=link&condition=status=3 and level>0 and thumb=''&pagesize=10&order=listorder desc,itemid desc&template=list-link_idx")}--> <a href="{$MODULE[3][linkurl]}{rewrite('link.php?action=reg')}">[申请]</a> <a href="{$MODULE[3][linkurl]}link.php">[更多]</a></div>
+</div>
+<div class="dsn">
+<div id="letters">
+{loop $LETTER $l}
+<div id="letter_{$l}">
+<table width="100%" cellspacing="0">
+{if $CATALOG[$l]}
+{loop $CATALOG[$l] $i $c}
+{if $i%5==0}<tr>{/if}
+<td width="20%"><a href="{$MODULE[5][linkurl]}{$c[linkurl]}" target="_blank"><span>{set_style($c[catname], $c[style])}</span></a></td>
+{if $i%5==4}</tr>{/if}
+{/loop}
+{else}
+<tr><td>没有拼音字母 <strong>{$l}</strong> 开头的类目</td></tr>
+{/if}
+</table>
+</div>
+{/loop}
+</div>
+<div id="hide_button">
+<table width="100%" cellspacing="3" cellpadding="3">
+<tr align="center">
+<td>{load('ad_20.htm')}</td>
+<td>{load('ad_21.htm')}</td>
+<td>{load('ad_22.htm')}</td>
+<td>{load('ad_23.htm')}</td>
+<td>{load('ad_24.htm')}</td>
+<td>{load('ad_25.htm')}</td>
+</tr>
+</table>
+</div>
+<div id="hide_player">{load('ad_14.htm')}</div>
+</div>
+<script type="text/javascript">
+$('show_button').innerHTML = $('hide_button').innerHTML;
+$('show_player').innerHTML = $('hide_player').innerHTML;
+var curls = ['{$MODULE[5][linkurl]}','{$MODULE[6][linkurl]}','{$MODULE[7][linkurl]}','{$MODULE[4][linkurl]}'];
+var member_url = '{$MODULE[2][linkurl]}';
+</script>
+<script type="text/javascript" src="{DT_PATH}javascript/index.js"></script>
+{template 'footer'}

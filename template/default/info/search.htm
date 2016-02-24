@@ -1,0 +1,46 @@
+{template 'header'}
+<div class="m">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; <a href="{$MOD[linkurl]}search.php">搜索</a></div>
+		<div class="fsearch">
+			<form action="{$MOD[linkurl]}search.php" id="fsearch">
+			<table cellpadding="3" cellspacing="3">
+			<tr>
+			<td width="80" align="right">关 键 词：</td>
+			<td>
+			<input type="text" size="60" name="kw" value="{$kw}"/>
+			<input type="submit" value="搜索" class="btn"/>
+			<input type="button" value="重置" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+			</td>
+			</tr>
+			<tr>
+			<td align="right">所属栏目：</td>
+			<td>
+			{$category_select}&nbsp;&nbsp;
+			所在地区：{$area_select}
+			</td>
+			</tr>
+			<tr>
+			<td align="right">更新日期：</td>
+			<td>
+			{dcalendar('fromdate', $fromdate, '')} 至 {dcalendar('todate', $todate, '')}
+			</td>
+			</tr>
+			</table>
+			</form>
+		</div>
+		{if $tags}
+		<br/>
+		{loop $tags $v}
+		<div class="sch">
+			<h1><span class="f_r px12"><span class="f_gray">[{area_pos($v[areaid], '/', 2)}]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{timetodate($v[addtime], 3)}</span><a href="{$v[linkurl]}" target="_blank">&middot;{$v[title]}</a></h1>
+		</div>
+		{/loop}
+		<div class="pages">{$pages}</div>
+		{else}
+		{template 'noresult'}
+		{/if}
+		<br/>
+	</div>
+</div>
+{template 'footer'}

@@ -1,0 +1,36 @@
+{template 'header'}
+<div class="m">
+<div class="f_l" style="width:772px;">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')}</div>
+		<div class="category">
+			<div><img src="{SKIN_PATH}image/arrow.gif" width="17" height="12" alt=""/> <strong>按分类浏览</strong></div>
+			<table width="100%" cellpadding="3">
+			{loop $maincat $k $v}
+			{if $k%8==0}<tr>{/if}
+			<td{if $v[catid]==$catid} class="f_b"{/if}><a href="{$MOD[linkurl]}{$v[linkurl]}">{set_style($v[catname],$v[style])}</a> <span class="f_gray px10">({$ITEMS[$v[catid]]})</span></td>
+			{if $k%8==7}</tr>{/if}
+			{/loop}
+			</table>
+		</div>
+		<div class="fsearch">
+			<form action="{$MOD[linkurl]}search.php" id="fsearch">
+			<input type="hidden" name="catid" id="catid" value="{$catid}"/>
+			<img src="{SKIN_PATH}image/arrow.gif" width="17" height="12" alt=""/> <strong>{$MOD[name]}搜索</strong>
+			关键词 <input type="text" size="50" name="kw"/>&nbsp;
+			<input type="submit" value="搜索" class="btn"/>
+			<input type="button" value="高级" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+			</form>
+		</div>		<!--{tag("moduleid=$moduleid&table=exhibit&condition=status=3&catid=$catid&pagesize=".$MOD[pagesize]."&page=$page&showpage=1&datetype=5&order=".$MOD[order]."&template=list-exhibit")}-->
+		<br/>
+	</div>
+</div>
+<div class="rows_nav f_l">&nbsp;</div>
+<div class="f_l" style="width:180px;">
+	<div class="box_head">赞助商链接</div>
+	<div class="box_body">
+		<div class="sponsor">{load('ad_19.htm')}</div>
+	</div>
+</div>
+</div>
+{template 'footer'}

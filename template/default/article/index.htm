@@ -1,0 +1,58 @@
+{template 'header'}
+<div class="m">
+	<div class="f_l" style="width:652px;">
+		<div>
+			<div class="f_l" style="width:300px;">
+			<!--{tag("moduleid=$moduleid&table=article_$moduleid&condition=status=3 and level=2 and thumb!=''&order=".$MOD[order]."&pagesize=3&width=300&height=200&template=slide")}-->
+			</div>
+			<div class="rows_nav f_l">&nbsp;</div>
+			<div class="f_l" style="width:344px;">
+				<div style="width:342px;">
+				<div class="headline">
+				<!--{tag("moduleid=$moduleid&table=article_$moduleid&condition=status=3 and level=4&order=".$MOD[order]."&pagesize=1&template=list-hl")}-->
+				</div>
+				<div class="headline">
+				<!--{tag("moduleid=$moduleid&table=article_$moduleid&condition=status=3 and level=5&pagesize=2&order=".$MOD[order]."&template=list-hlr")}-->
+				<div class="c_b"> </div>
+				</div>
+				</div>
+				<div class="subline">
+				<!--{tag("moduleid=$moduleid&table=article_$moduleid&condition=status=3 and level=1&order=".$MOD[order]."&pagesize=5&datetype=2&target=_blank")}-->
+				</div>
+			</div>
+		</div>
+		<div class="c_b"></div>
+		<table cellpadding="0" cellspacing="0" width="100%">
+		{loop $maincat $i $c}
+		{if $i%2==0}<tr>{/if}
+		<td valign="top" width="322">
+			<div class="subcat">
+				<div><span class="f_r"><a href="{$MOD[linkurl]}{$c[linkurl]}" class="w">更多..</a></span><strong>{$c[catname]}</strong></div>				<!--{tag("moduleid=$moduleid&table=article_$moduleid&catid=".$c[catid]."&condition=status=3&order=".$MOD[order]."&pagesize=6&datetype=2&target=_blank")}-->
+			</div>
+		</td>
+		{if $i%2==0}<td>&nbsp;</td>{/if}
+		{if $i%2==1}</tr>{/if}
+		{/loop}
+		</table>
+	</div>
+	<div class="rows_nav f_l">&nbsp;</div>
+	<div class="rows2_right f_l">
+		<div class="box_head">推荐图文</div>
+		<div class="box_body thumb"><!--{tag("moduleid=$moduleid&table=article_$moduleid&length=20&condition=status=3 and level=3&pagesize=6&order=".$MOD[order]."&width=120&height=90&cols=2&template=thumb-table&target=_blank")}--></div>
+		<div class="b8 c_b"> </div>
+		<div class="box_head">{$MOD[name]}搜索</div>
+		<div class="box_body">
+		<form action="{$MOD[linkurl]}search.php">
+		<input type="text" size="25" name="kw"/> 
+		<input type="submit" value="搜索" class="btn"/>
+		<input type="button" value="高级" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+		</form>
+		</div>
+		<div class="b8 c_b"> </div>
+		<div class="box_head">点击排行</div>
+		<div class="box_body">
+		<!--{tag("moduleid=$moduleid&table=article_$moduleid&condition=status=3 and addtime>$DT_TIME-30*24*3600&order=hits desc&pagesize=10&target=_blank", -1)}-->
+		</div>
+	</div>
+</div>
+{template 'footer'}

@@ -1,0 +1,74 @@
+{template 'header'}
+<div class="m">
+<div class="f_l" style="width:772px;">
+	<div class="left_box">
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a>
+		&raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a>
+		{if $typeid>0}&raquo; <a href="{$MOD[linkurl]}{rewrite('index.php?typeid='.$typeid)}">{$TYPE[$typeid]}</a>{/if}
+		{if $catid}&raquo; <a href="{$MOD[linkurl]}{$CATEGORY[$catid][linkurl]}">{$CATEGORY[$catid][catname]}</a>{/if}
+		</div>
+		<div class="category">
+			<div><img src="{SKIN_PATH}image/arrow.gif" width="17" height="12" alt=""/> <strong>按行业浏览</strong></div>
+			<table width="100%" cellpadding="3">
+			{loop $maincat $k $v}
+			{if $k%8==0}<tr>{/if}
+			<td><a href="{$MOD[linkurl]}{$v[linkurl]}">{set_style($v[catname],$v[style])}</a> <span class="f_gray px10">({$ITEMS[$v[catid]]})</span></td>
+			{if $k%8==7}</tr>{/if}
+			{/loop}
+			</table>
+		</div>
+		<div class="fsearch">
+			<form action="{$MOD[linkurl]}search.php" id="fsearch">
+			<img src="{SKIN_PATH}image/arrow.gif" width="17" height="12" alt=""/> <strong>{$MOD[name]}搜索</strong>
+			关键词 <input type="text" size="50" name="kw"/>&nbsp;
+			<input type="checkbox" name="vip" id="vip" value="1" checked/> {VIP}&nbsp;
+			<input type="checkbox" name="thumb" id="thumb" value="1"/> 有图&nbsp;
+			<input type="submit" value="搜索" class="btn"/>
+			<input type="button" value="高级" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+			</form>
+		</div>
+		<div class="b10">&nbsp;</div>
+		<div class="type">
+		<a href="{$MOD[linkurl]}" class="{if $typeid==-1}type_1{else}type_2{/if}">全部</a>
+		{loop $TYPE $k $v}
+		<a href="{$MOD[linkurl]}{rewrite('index.php?typeid='.$k.'&catid='.$catid)}" class="{if $typeid==$k}type_1{else}type_2{/if}">{$v}</a>
+		{/loop}
+		</div>
+		<div class="b10 c_b">&nbsp;</div>
+		<form method="post">
+		<div class="tool">
+			<table>
+			<tr height="30">
+			<td width="20" align="center" title="全选/反选"><input type="checkbox" onclick="checkall(this.form);"/><td>
+			<td>
+				<input type="submit" value="对比选中" onclick="this.form.action='{$MOD[linkurl]}compare.php';"/>
+			</td>
+			<td align="right"><img src="{SKIN_PATH}image/arrow_down.gif" alt=""/> <a href="{$MOD[linkurl]}{rewrite('search.php?thumb=1&catid='.$catid)}">显示有图信息</a> <img src="{SKIN_PATH}image/arrow_down.gif" alt=""/> <a href="{$MOD[linkurl]}{rewrite('search.php?vip=1&catid='.$catid)}">显示{VIP}会员信息</a>&nbsp;</td>
+			</tr>
+			</table>
+		</div>
+		{if $page == 1}{load('ad_m'.$moduleid.'.htm')}{/if}		<!--{tag("moduleid=$moduleid&table=sell&condition=status=3$dtype&catid=$catid&pagesize=".$MOD[pagesize]."&page=$page&showpage=1&datetype=5&order=".$MOD[order]."&template=list-sell")}-->
+		<div class="tool">
+			<table>
+			<tr height="30">
+			<td width="20" align="center">&nbsp;<td>
+			<td>
+				<input type="submit" value="对比选中" onclick="this.form.action='{$MOD[linkurl]}compare.php';"/>
+			</td>
+			<td align="right"><img src="{SKIN_PATH}image/arrow.gif" width="17" height="12" alt=""/> <a href="javascript:window.scrollTo(0,0);">返回顶部</a> <img src="{SKIN_PATH}image/arrow.gif" width="17" height="12" alt=""/> <a href="{$MOD[linkurl]}search.php">高级搜索</a>&nbsp;</td>
+			</tr>
+			</table>
+		</div>
+		</form>
+	<br/>
+	</div>
+</div>
+<div class="rows_nav f_l">&nbsp;</div>
+<div class="f_l" style="width:180px;">
+	<div class="box_head">赞助商链接</div>
+	<div class="box_body">
+		<div class="sponsor">{load('ad_15.htm')}</div>
+	</div>
+</div>
+</div>
+{template 'footer'}

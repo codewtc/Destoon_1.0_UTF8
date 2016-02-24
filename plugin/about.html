@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><!--Powered By Destoon B2B System www.destoon.com-->
+<title>关于我们 - Destoon B2B网站管理系统</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<meta name="author" content="Destoon B2B System. www.destoon.com"/>
+<meta http-equiv="x-ua-compatible" content="ie=7"/>
+<link rel="stylesheet" type="text/css" href="http://www.destoon.com/skin/default/style.css"/>
+<link rel="shortcut icon" href="http://www.destoon.com/favicon.ico"/>
+<link rel="bookmark" href="http://www.destoon.com/favicon.ico"/>
+<script type="text/javascript">
+var DTPath = 'http://www.destoon.com/';
+var SKPath = 'http://www.destoon.com/skin/default/';
+</script>
+<script type="text/javascript" src="http://www.destoon.com/javascript/common.js"></script>
+</head>
+<body>
+<div class="m">
+	<div class="top">
+			<div class="f_r" id="destoon_member"></div><img src="http://www.destoon.com/skin/default/image/vip.gif" alt="VIP标识" align="absmiddle"/><a href="http://www.destoon.com/member/vip.php"><span class="f_red">上网做生意，首选VIP会员</span></a> | 		
+			<a id="StranLink">繁体中文</a> | 
+			<a href="javascript:addFav();">收藏本页</a> | 
+			<a href="http://www.destoon.com/wap/">WAP浏览</a> | 			<a href="http://www.destoon.com/plugin/feed.php">RSS订阅</a> | 
+			<a href="http://www.destoon.com/member/my.php">发布信息</a><img src="http://www.destoon.com/skin/default/image/free.gif" width="23" height="12" alt=""/>
+		</div>
+</div>
+<div class="m">
+	<div class="f_l logo"><h1><a href="http://www.destoon.com/" title="Destoon B2B网站管理系统">Destoon B2B网站管理系统</a></h1></div>
+	<div class="f_l">
+		<div class="search">
+			<div class="search_div">
+			<form onsubmit="return Dsearch();" id="destoon_search" action="http://www.destoon.com/sell/search.php">
+			<div class="search_mod">
+				<ul>
+				<li class="search_on" id="ms5" onclick="setDsearch(5);" title="搜索供应">供应</li>
+				<li class="search_li" id="ms6" onclick="setDsearch(6);" title="搜索求购">求购</li>
+				<li class="search_li" id="ms7" onclick="setDsearch(7);" title="搜索产品">产品</li>
+				<li class="search_li" id="ms4" onclick="setDsearch(4);" title="搜索公司">公司</li>
+				</ul>
+			</div>
+			<div>
+				<input name="kw" id="destoon_kw" type="text" size="50" class="search_inp" value="请输入关键字" onfocus="if(this.value=='请输入关键字') this.value='';"/> <input type="image" src="http://www.destoon.com/skin/default/image/search.gif" align="absmiddle"/>
+			</div>
+			</form>
+			</div>
+		</div>
+	</div>
+	<div class="f_l banner"><!--1577894399--><a href="http://www.destoon.com/plugin/redirect.php?aid=1" target="_blank"><img src="/skin/default/image/banner.gif" width="468" height="60" alt="Destoon专用VPS主机"/></a></div>
+</div>
+<script type="text/javascript">
+var SearchID = 5;
+var SearchURL = new Array();
+SearchURL[4] = 'http://www.destoon.com/company/';
+SearchURL[5] = 'http://www.destoon.com/sell/';
+SearchURL[6] = 'http://www.destoon.com/buy/';
+SearchURL[7] = 'http://www.destoon.com/product/';
+function setDsearch(ID) {
+	if(ID == SearchID) return;
+	$('ms'+ID).className = 'search_on';
+	$('ms'+SearchID).className = 'search_li';
+	$('destoon_search').action = SearchURL[ID]+'search.php';
+	SearchID = ID;	
+}
+function Dsearch() {
+	if($('destoon_kw').value == '' || $('destoon_kw').value == '请输入关键字') {
+		alert('请输入关键字');
+		$('destoon_kw').focus();
+		return false;
+	}
+}
+</script>
+<div class="m">
+	<div class="menu">
+
+	<ul><li class="menuon"><a href="http://www.destoon.com/"><span>首页</span></a></li><li><a href="http://www.destoon.com/sell/"><span>供应</span></a></li><li><a href="http://www.destoon.com/buy/"><span>求购</span></a></li><li><a href="http://www.destoon.com/product/"><span>产品</span></a></li><li><a href="http://www.destoon.com/company/"><span>公司</span></a></li><li><a href="http://www.destoon.com/exhibit/"><span>展会</span></a></li><li><a href="http://www.destoon.com/news/"><span>资讯</span></a></li><li><a href="http://www.destoon.com/invest/"><span>招商</span></a></li></ul>
+
+	</div>
+</div>
+<div class="m b8">&nbsp;</div><div class="m">
+	<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+	<td valign="top" class="left_menu">
+		<ul>
+		<li><a href="http://www.destoon.com/">网站首页</a></li>
+		<li id="webpage_1"><a href="http://www.destoon.com/plugin/about.html">关于我们</a></li>
+<li id="webpage_3"><a href="http://www.destoon.com/plugin/contact.html">联系方式</a></li>
+<li id="webpage_4"><a href="http://www.destoon.com/plugin/agreement.html">使用协议</a></li>
+<li id="webpage_5"><a href="http://www.destoon.com/plugin/copyright.html">版权隐私</a></li>
+<li id="webpage_6"><a href="http://www.destoon.com/plugin/sitemap.html">网站地图</a></li>
+		</ul>
+	</td>
+	<td width="8"> </td>
+	<td valign="top">
+		<div class="left_box">		
+			<div class="pos">当前位置: <a href="http://www.destoon.com/">首页</a> &raquo; <a href="plugin/about.html">关于我们</a></div>
+			<div style="border-bottom:#C0C0C0 1px dotted;margin:5px 15px 5px 15px;line-height:36px;" class="t_c px14"><strong>关于我们</strong></div>
+			<div class="content" id="content">关于我们</div>
+		<br/>
+		</div>
+	</td>
+	</tr>
+	</table>
+</div>
+<script type="text/javascript">
+try {
+	$('webpage_1').style.backgroundColor = '#CDDCE4';	
+}catch (e){}
+</script>
+<div class="m b8">&nbsp;</div>
+<div class="m">
+	<div class="footer">
+	   <a href="http://www.destoon.com/">网站首页</a>
+	   | <a href="http://www.destoon.com/plugin/about.html">关于我们</a> 
+| <a href="http://www.destoon.com/plugin/contact.html">联系方式</a> 
+| <a href="http://www.destoon.com/plugin/agreement.html">使用协议</a> 
+| <a href="http://www.destoon.com/plugin/copyright.html">版权隐私</a> 
+| <a href="http://www.destoon.com/plugin/sitemap.html">网站地图</a> 
+	   | <a href="http://www.destoon.com/plugin/link.php">友情链接</a> 
+	   | <a href="http://www.destoon.com/plugin/ad.php">广告服务</a> 
+	   | <a href="http://www.destoon.com/plugin/feed.php">RSS订阅</a> 
+				 | <a href="http://www.miibeian.gov.cn" target="_blank">备案申请中</a>
+			 <div>&copy;2008-2009&nbsp;&nbsp;DESTOON B2B SYSTEM All Rights Reserved</div>
+	 <div id="powered"><a href="http://www.destoon.com" target="_blank"><strong>Powered by Destoon 1.0</strong></a></div>
+	</div>
+</div>
+<script type="text/javascript" src="http://www.destoon.com/javascript/gb2big5.js"></script>
+<script type="text/javascript" src="http://www.destoon.com/task.js.php?"></script>
+</body>
+</html>

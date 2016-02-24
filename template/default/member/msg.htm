@@ -1,0 +1,62 @@
+{template 'header'}
+<div class="m">
+	<div class="left_box">
+	<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">提示信息</a></div>
+	<br/>
+	<table width="300" cellpadding="0" cellspacing="0" align="center">
+	<tr>
+	<td><img src="{SKIN_PATH}image/login_i.gif" alt="" width="300" height="35"/></td>
+	</tr>
+	<tr>
+	<td background="{SKIN_PATH}image/login_b.gif">
+	<div style="padding:20px 10px 5px 15px;line-height:200%;" class="px13">
+			{if $msgcode == 'R3'}
+			<img src="{SKIN_PATH}image/check_right.gif" alt="" width="12" height="11"/> <strong>恭喜!邮件成功激活，您已注册成功。</strong><br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;欢迎您的加入...<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$MOD[linkurl]}login.php?username={$username}&forward={$MOD[linkurl]}"><img src="{SKIN_PATH}image/btn_login.gif" alt="" width="120" height="35"/></a><br/>
+			<meta http-equiv="refresh" content="6;URL={$MOD[linkurl]}login.php?username={$username}&forward={$MOD[linkurl]}">
+			{elseif $msgcode == 'R2'}
+
+			<strong>系统设置了邮件验证。</strong><br/>
+			一封验证信已经发送至您填写的邮箱。<br/>
+			请立即登录您的邮箱来完整帐号的激活。<br/>
+			<a href="{$MOD[linkurl]}send.php?action=check">如果未收到邮件，请点这里重发</a>
+
+			{elseif $msgcode == 'R1'}
+
+			<strong>系统设置了人工审核。</strong><br/>
+			您的帐号在管理员审核之后方可使用。<br/>
+			请耐心等待管理员回复。<br/>
+			<a href="{DT_PATH}">点击这里返回网站首页</a>
+			<meta http-equiv="refresh" content="5;URL={DT_PATH}">
+
+			{elseif $msgcode == 'R0'}
+
+			<img src="{SKIN_PATH}image/check_right.gif" alt="" width="12" height="11"/> <strong>恭喜!&nbsp;您已经注册成功。</strong><br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;欢迎您的加入...<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$MOD[linkurl]}login.php?username={$username}&forward={$MOD[linkurl]}"><img src="{SKIN_PATH}image/btn_login.gif" alt="" width="120" height="35"/></a><br/>
+			<meta http-equiv="refresh" content="6;URL={$MOD[linkurl]}login.php?username={$username}&forward={$MOD[linkurl]}">
+
+			{elseif $msgcode == 'S0'}
+
+			<img src="{SKIN_PATH}image/check_right.gif" alt="" width="12" height="11"/> <strong>恭喜!&nbsp;您的密码重设成功。</strong><br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;新密码为<span class="f_red">{$password}</span> 请妥善保存并尽快修改<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;<span class="px12 f_gray">注意：在离开本页之前，请记录新密码</span><br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;<span class="px12 f_gray">新密码可在登录后修改</span><br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$MOD[linkurl]}login.php?username={$username}&forward={$MOD[linkurl]}"><img src="{SKIN_PATH}image/btn_login.gif" alt="" width="120" height="35"/></a><br/>
+
+			{else}
+			Loading...
+			<meta http-equiv="refresh" content="0;URL={DT_PATH}">
+			{/if}
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td><img src="{SKIN_PATH}image/login_f.gif" alt="" width="300" height="30"/></td>
+	</tr>
+	</table>
+	<br/>
+	</div>
+</div>
+{template 'footer'}

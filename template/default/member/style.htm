@@ -1,0 +1,37 @@
+{template 'header', 'member'}
+<div class="pos">模板设置</div>
+<div class="bd">
+<table cellpadding="1" cellspacing="0" class="tb">
+<tr>
+<th width="170">预览图</th>
+<th>模板名称</th>
+<th>会员组</th>
+<th>作 者</th>
+<th>添加时间</th>
+<th width="60">管理</th>
+</tr>
+{loop $styles $k $v}
+{if $c[skin] == $v[skin]}
+<tr align="center" style="background:#F1F1F1;">
+{else}
+<tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+{/if}
+<td height="130"><img src="{$v[thumb]}" width="150" height="110"/></td>
+<td><a href="?itemid={$v[itemid]}">{$v[title]}</a></td>
+<td>{$v[group]}</td>
+<td>{$v[author]}</td>
+<td>{$v[adddate]}</td>
+<td>
+{if $c[skin] == $v[skin]}
+<a href="{$c[linkurl]}" target="_blank">预览</a>
+{else}
+<a href="?itemid={$v[itemid]}">启用</a>
+{/if}
+</td>
+</tr>
+{/loop}
+</table>
+</div>
+<div class="pages">{$pages}</div>
+<script type="text/javascript">s('homepage');</script>
+{template 'footer', 'member'}

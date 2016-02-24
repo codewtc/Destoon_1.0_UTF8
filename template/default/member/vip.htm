@@ -1,0 +1,123 @@
+{template 'header'}
+<div class="m">
+	<div class="f_l" style="width:300px;">
+		<div class="box_head"><strong>如何购买{VIP}服务?</strong></div>
+		<div class="box_body">
+			<ul>
+			<li class="f_red"><strong>方法一：</strong></li>
+			<li>直接致电客户专员，服务电话：{$DT[telephone]}</li>
+			</ul>
+			<div class="b8">&nbsp;</div>
+			<div class="b8" style="border-top:#C0C0C0 1px dotted;">&nbsp;</div>
+			<ul> 
+			<li class="f_red"><strong>方法二：</strong><br/>
+			<li>在线提交购买意向，客户专员将尽快联系您。</li>
+			</ul>
+			<div class="b8">&nbsp;</div>
+			<a href="#online"><img src="{SKIN_PATH}image/btn_write.gif" width="120" height="28" alt=""/></a>
+			<div class="b8">&nbsp;</div>
+		</div>
+		<div class="b8">&nbsp;</div>
+
+		<div class="box_head"><strong>{VIP}服务开通流程</strong></div>
+		<div class="box_body">		
+			<div class="t_c"><img src="{SKIN_PATH}image/vip_step.jpg" alt=""/></div>
+			<div class="b8">&nbsp;</div>
+		</div>
+	</div>
+	<div class="f_l" style="width:8px;">&nbsp;</div>
+	<div class="f_l" style="width:652px;">
+				<table cellpadding="5" cellspacing="1" bgcolor="#AACCEE" width="100%">
+				<tr bgcolor="#2D7DB8" align="center">
+				<td class="f_b f_white" width="200">功能列表</td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td class="f_b f_white">{$v[groupname]}</td>
+				{/if}{/loop}
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>年 费</td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td>{if $v[fee]}<span class="f_red">{$v[fee]} 元/年</span>{else}<span class="f_green">免 费</span>{/if}</td>
+				{/if}{/loop}
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>允许发布信息的模块</td>
+
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td>
+				{loop $MODULE $m}
+					{if $m[moduleid] > 4 && in_array($m[moduleid], $v[moduleids])}<a href="{$m[linkurl]}" target="_blank">{$m[name]}</a>/{/if}
+				{/loop}
+				</td>
+				{/if}{/loop}
+
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>独享买家信息</td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td><img src="{SKIN_PATH}image/{if $v[buyerinfo]}yes{else}no{/if}.gif"/></td>
+				{/if}{/loop}
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>信息优先排序</td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td><img src="{SKIN_PATH}image/{if $v[vip]}yes{else}no{/if}.gif"/></td>
+				{/if}{/loop}
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>信息关键字排名</td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td><img src="{SKIN_PATH}image/{if $v[vip]}yes{else}no{/if}.gif"/></td>
+				{/if}{/loop}
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>拥有{VIP}标识 <img src="{SKIN_PATH}image/vip.gif" align="absmiddle"/></td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td><img src="{SKIN_PATH}image/{if $v[vip]}yes{else}no{/if}.gif"/></td>
+				{/if}{/loop}
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>拥有公司主页</td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td><img src="{SKIN_PATH}image/{if $v[homepage]}yes{else}no{/if}.gif"/></td>
+				{/if}{/loop}
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>绑定顶级域名</td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td><img src="{SKIN_PATH}image/{if $v[vip]}yes{else}no{/if}.gif"/></td>
+				{/if}{/loop}
+				</tr>
+				<tr bgcolor="#FFFFFF" align="center">
+				<td>售后服务</td>
+				{loop $GROUPS $k $v}{if $k > 4}
+				<td><img src="{SKIN_PATH}image/{if $v[vip]}yes{else}no{/if}.gif"/></td>
+				{/if}{/loop}
+				</tr>
+				</table>
+
+		<div class="b8">&nbsp;</div>
+		<div class="box_head">在线申请</div>
+		<div class="box_body">
+			<div style="margin:15px;background:#EAF3FC;padding:15px;line-height:25px;">
+			<span class="px14 f_b jt">欢迎您使用{VIP}在线申请服务:</span><br/>
+			1.在申请{VIP}服务时，如您有任何问题或疑问，请拨打咨询热线：{$DT[telephone]} <br/>
+			2.填写完申请表单后，会有客户经理与您联系，以便您更好的了解和使用我们的服务！<br/>
+			</div>
+			<div style="padding:0 20px 20px 20px;">
+			{if $_userid}<span class="f_orange">申请人：<strong>{$_username}</strong> [{$_company}]</span><br/><br/>
+			<form method="post" action="{$MODULE[2][linkurl]}vip.php"  onsubmit="return check_form();">
+<textarea style="width:500px;height:200px;font-size:13px;" name="content">
+公司名称：{$_company}&#10;--------------------------------&#10;申请年限：1年&#10;
+--------------------------------&#10;联系最佳时间：随时&#10;--------------------------------&#10;联系手机：{$r[mobile]}&#10;联系电话：{$r[telephone]}&#10;联系Email：{$r[email]}&#10;联系QQ：{$r[qq]}&#10;联系MSN：{$r[msn]}&#10;--------------------------------&#10;备注说明：</textarea><br/><br/>
+			<input name="submit" type="submit"  value="确认以上信息无误，立即提交"/>
+			</form>
+			{else}
+			<span class="f_gray">&nbsp;您尚未登录，无法在线提交。请先 <a href="{$MOD[linkurl]}login.php">[登 录]</a> 或 <a href="{$MOD[linkurl]}register.php">[注 册]</a> 或 拨打咨询热线：{$DT[telephone]}</span><br/>
+			{/if}
+			<a name="online"></a>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}

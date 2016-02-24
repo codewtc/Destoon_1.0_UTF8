@@ -1,0 +1,1 @@
+<?php defined('IN_DESTOON') or exit('Access Denied'); return array ('link_reg' => '1','ad_view' => '1','moduleid' => '3','name' => '插件','moduledir' => 'plugin','ismenu' => '0','domain' => '','linkurl' => 'http://www.destoon.com/plugin/',); ?>

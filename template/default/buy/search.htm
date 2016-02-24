@@ -1,0 +1,68 @@
+{template 'header'}
+<div class="m">
+<div class="f_l" style="width:772px;">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; <a href="{$MOD[linkurl]}search.php">搜索</a></div>
+		<div class="category">
+			<div><img src="{SKIN_PATH}image/arrow.gif" width="17" height="12" alt=""/> <strong>按行业浏览</strong></div>
+			<table width="100%" cellpadding="3">
+			{loop $maincat $k $v}
+			{if $k%8==0}<tr>{/if}
+			<td{if $v[catid]==$catid} class="f_b"{/if}><a href="{$MOD[linkurl]}{$v[linkurl]}">{set_style($v[catname],$v[style])}</a> <span class="f_gray px10">({$ITEMS[$v[catid]]})</span></td>
+			{if $k%8==7}</tr>{/if}
+			{/loop}
+			</table>
+		</div>
+		<div class="fsearch">
+			<form action="{$MOD[linkurl]}search.php" id="fsearch">
+			<table cellpadding="3" cellspacing="3">
+			<tr>
+			<td width="80" align="right">关 键 词：</td>
+			<td colspan="3">
+			<input type="text" size="60" name="kw" value="{$kw}"/>
+			<input type="submit" value="搜索" class="btn"/>
+			<input type="button" value="重置" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+			</td>
+			</tr>
+			<tr>
+			<td align="right">更新日期：</td>
+			<td>{dcalendar('fromdate', $fromdate, '')} 至 {dcalendar('todate', $todate, '')}</td>
+			<td align="right">所属行业：</td>
+			<td>{$category_select}</td>
+			</tr>
+			<tr>
+			<td align="right">信息类型：</td>
+			<td>			
+			{$type_select} 
+			<input type="checkbox" name="thumb" id="thumb" value="1"{if $thumb} checked{/if}/> 有图
+			<input type="checkbox" name="vip" id="vip" value="1"{if $vip} checked{/if}/> {VIP}
+			</td>
+			<td align="right">所在地区：</td>
+			<td>{$area_select}</td>
+			</tr>
+			</table>
+			</form>
+		</div>
+		{if $tags}
+		{if $page==1 && $kw}{load('ad_m'.$moduleid.'_k'.urlencode($kw).'.htm')}{/if}
+		{template 'list-buy', 'tag'}
+		{else}
+		{template 'noresult'}
+		{/if}
+	<br/>
+	</div>
+</div>
+<div class="rows_nav f_l">&nbsp;</div>
+<div class="f_l" style="width:180px;">
+	<div class="box_head">赞助商链接</div>
+	<div class="box_body">
+		<div class="sponsor">{load('ad_17.htm')}</div>
+	</div>
+</div>
+</div>
+{if $kw}
+<script type="text/javascript">
+try{$('destoon_kw').value = '{$kw}';}catch(e){}
+</script>
+{/if}
+{template 'footer'}

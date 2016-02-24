@@ -1,0 +1,27 @@
+{template 'header'}
+<div class="m">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; <a href="{$MOD[linkurl]}search.php">搜索</a></div>
+		<div style="padding:10px 10px 10px 20px;margin:10px;background:#FAFAFA;">
+		<form action="{$MOD[linkurl]}search.php">
+		关键词 <input type="text" size="50" name="kw" value="{$kw}"/>&nbsp; 
+		{$category_select}&nbsp;
+		<input type="submit" value="搜索" class="btn"/>&nbsp;
+		<input type="button" value="重置" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+		</form>
+		</div>
+		{if $tags}
+		{loop $tags $v}
+		<div class="sch">
+			<h1><span class="f_r px12 f_green">{timetodate($v[addtime], 3)}</span><a href="{$v[linkurl]}" target="_blank">&middot;{$v[title]}</a></h1>
+			{if $v[introduce]}<div>{$v[introduce]}</div>{/if}
+		</div>
+		{/loop}
+		<div class="pages">{$pages}</div>
+		{else}
+		{template 'noresult'}
+		{/if}
+	<br/>
+	</div>
+</div>
+{template 'footer'}

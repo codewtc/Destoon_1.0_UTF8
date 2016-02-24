@@ -1,0 +1,88 @@
+{template 'header', $template}
+<div class="pos">当前位置：<a href="{$COM[linkurl]}">{$COM[company]}首页</a> &raquo; <a href="{$MENU[guestbook][1]}">{$MENU[guestbook][0]}</a></div>
+<div class="box">
+	<h1>欢迎留言</h1>
+	<div>
+	<form action="{$MODULE[2][linkurl]}guestbook.php" method="post" onsubmit="return check();">
+	<input type="hidden" name="post[username]" value="{$username}"/>
+	<input type="hidden" name="action" value="add"/>
+	<input type="hidden" name="forward" value="{$DT_URL}"/>
+	<table width="100%" cellpadding="5" cellspacing="1">
+	<tr>
+	<td bgcolor="#F1F1F1" width="80">&nbsp;<span class="f_red">*</span> 留言主题</td>
+	<td bgcolor="#FAFAFA">
+	<input type="text" name="post[title]"  size="40" id="title"/>&nbsp;
+	<input type="checkbox" name="post[hidden]" value="1"/> 隐藏留言，仅管理员可见
+	</td>
+	</tr>
+	<tr>
+	<td bgcolor="#F1F1F1">&nbsp;<span class="f_red">*</span> 留言内容</td>
+	<td bgcolor="#FAFAFA" title="留言内容不支持任何语法，仅限文字"><textarea name="post[content]" rows="5" cols="70" id="content"></textarea></td>
+	</tr>
+	<tr>
+	<td bgcolor="#F1F1F1">&nbsp;<span class="f_red">*</span> 验证码</td>
+	<td bgcolor="#FAFAFA">
+	{template 'captcha'}
+	</td>
+	</tr>
+	<tr>
+	<td bgcolor="#F1F1F1"> </td>
+	<td bgcolor="#FAFAFA">
+	<input type="submit" value=" 提 交 ">&nbsp;
+	<input type="reset" value=" 重 写 ">
+	</td>
+	</tr>
+	</table>
+	</form>
+	</div>
+</div>
+<style>
+.gt {line-height:24px;border-bottom:#CCCCCC 1px dotted;padding:0 5px 0 6px;}
+.gt strong {color:#004499;font-size:13px;}
+.gc {padding:10px;line-height:180%;}
+.gr {background:#FAFAFA;padding:10px;color:#666666;}
+</style>
+<div class="box">
+	<h1>最新留言</h1>
+	<div style="padding:15px 20px 15px 20px;color:#333333;">
+	{loop $guestbooks $k $v}
+	<div class="gt"><span class="f_r px11">{if $v[username]}<a href="{$MODULE[3][linkurl]}redirect.php?username={$v[username]}" target="_blank">{$v[username]}</a>{else}Guest{/if} @ {$v[adddate]}</span><strong>{$v[title]}</strong></div>
+	<div class="gc">
+		{if $v[hidden]}<em>本留言是隐藏留言，仅管理员可见</em>{else}{$v[content]}{/if}
+		{if $v[reply]}
+			<div class="gr"><strong class="f_orange">管理员 {$v[replydate]} 回复</strong><br/>{$v[reply]}</div>
+		{/if}
+	</div>
+	{/loop}
+	</div>
+	<div class="pages">{$pages}</div>
+</div>
+<script type="text/javascript">
+function check() {
+	var l;
+	var f;
+	f = 'title';
+	l = $(f).value.length;
+	if(l < 5 || l > 30) {
+		alert('标题应为5-30字，当前已输入'+l+'字');
+		$(f).focus();
+		return false;
+	}
+	f = 'content';
+	l = $(f).value.length;
+	if(l < 15 || l > 1000) {
+		alert('内容应为15-1000字，当前已输入'+l+'字');
+		$(f).focus();
+		return false;
+	}
+	f = 'captcha';
+	l = $(f).value.length;
+	if(l != 4) {
+		alert('请填写验证码');
+		$(f).focus();
+		return false;
+	}
+	return true;
+}
+</script>
+{template 'footer', $template}

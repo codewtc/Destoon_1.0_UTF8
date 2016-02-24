@@ -1,0 +1,5 @@
+<ul>
+{loop $tags $i $t}
+<li><a href="{$t[linkurl]}"{if $target} target="{$target}"{/if} title="{$t[title]}">{$t[stitle]}</a>&nbsp;</li>
+{/loop}
+</ul>

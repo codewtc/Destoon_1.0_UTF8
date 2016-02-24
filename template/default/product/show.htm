@@ -1,0 +1,154 @@
+{template 'header'}
+<div class="m">
+<div class="rows2_left f_l">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')} &raquo; 信息详情</div>
+		<h1 class="title">{$title}</h1>
+		<div class="info"><span class="f_r"><img src="{SKIN_PATH}image/zoomin.gif" width="16" height="16" alt="放大字体" class="c_p" onclick="fontZoom('+');"/>&nbsp;&nbsp;<img src="{SKIN_PATH}image/zoomout.gif" width="16" height="16"  alt="缩小字体" class="c_p" onclick="fontZoom('-');"/></span>
+		更新日期：{$editdate}
+		&nbsp;&nbsp;浏览次数：<span id="hits">{$hits}</span>
+		</div>
+		<br/>
+		<table width="620" align="center">
+		<tr>
+		<td width="290" valign="top">
+			<div class="album">
+			<table width="100%" cellpadding="0" cellspacing="0">
+			<tr align="center">
+			<td width="210" valign="top"><div><span id="abm" title="点击查看大图"><img src="{$albums[0]}" onload="if(this.width>200){this.width=200;}" onclick="window.open(this.src);"/></span></div></td>
+			<td width="6"> </td>
+			<td width="69" align="center" style="padding-top:5px;background:#F1F1F1;">{loop $thumbs $k $v}<img src="{$v}" width="50" height="50" onmouseover="Album({$k}, '{$albums[$k]}');" onclick="window.open('{$albums[$k]}');" class="{if $k}ab_im{else}ab_on{/if}" id="t_{$k}"/>{/loop}</td>
+			</tr>
+			</table>
+			</div>		
+		</td>
+		<td valign="top">
+			<table width="100%" cellpadding="4" cellspacing="4">
+			<tr>
+			<td width="80" class="f_dblue">产品/服务：</td>
+			<td class="f_b" colspan="2">{$tag}&nbsp;</td>
+			</tr>
+			{if $model}
+			<tr>
+			<td class="f_dblue">型 号：</td>
+			<td colspan="2">{$model}&nbsp;</td>
+			</tr>
+			{/if}
+			{if $standard}
+			<tr>
+			<td class="f_dblue">规 格：</td>
+			<td colspan="2">{$standard}&nbsp;</td>
+			</tr>
+			{/if}
+			{if $brand}
+			<tr>
+			<td class="f_dblue">品 牌：</td>
+			<td colspan="2">{$brand}&nbsp;</td>
+			</tr>
+			{/if}
+			<tr>
+			<td class="f_dblue">单 价：</td>
+			<td class="f_b f_orange">{if $price}{$price}元/{$unit}{/if}&nbsp;</td>
+			<td width="70"><a href="{$MOD[linkurl]}{rewrite('inquiry.php?itemid='.$itemid)}"><img src="{SKIN_PATH}image/btn_inquiry.gif" alt=""/></a></td>
+			</tr>
+			<tr>
+			<td class="f_dblue">最小起订量：</td>
+			<td class="f_b f_orange">{if $minamount}{$minamount} {$unit}{/if}&nbsp;</td>
+			<td width="70"><a href="{$MOD[linkurl]}{rewrite('order.php?itemid='.$itemid)}"><img src="{SKIN_PATH}image/btn_order.gif" alt=""/></a></td>
+			</tr>
+			<tr>
+			<td class="f_dblue">供货总量：</td>
+			<td class="f_b f_orange" colspan="2">{if $amount}{$amount} {$unit}{/if}</td>
+			</tr>
+			<tr>
+			<td class="f_dblue">发货期限：</td>
+			<td colspan="2">自买家付款之日起  <span class="f_b f_orange">{if $days}{$days}{/if}</span> 天内发货</td>
+			</tr>
+			</table>	
+		</td>
+		</tr>
+		</table>
+		<div class="detail">
+		<span class="f_r">
+		<form method="post" action="{$MODULE[2][linkurl]}favorite.php">
+		<input type="hidden" name="action" value="add"/>
+		<input type="hidden" name="title" value="{$title}"/>
+		<input type="hidden" name="url" value="{$linkurl}"/>
+		<input type="image" src="{SKIN_PATH}image/btn_fav.gif" class="c_p"/>
+		</form>
+		</span>
+		<strong class="f_orange px14">详细介绍</strong>
+		</div>
+		<div class="content c_b" id="content">{$content}</div>
+		<div class="b10">&nbsp;</div>
+		<form method="post" action="{$MODULE[2][linkurl]}sendmail.php" name="sendmail" id="sendmail" target="_blank">
+		<input type="hidden" name="itemid" value="{$itemid}"/> 
+		<input type="hidden" name="title" value="{$title}"/> 
+		<input type="hidden" name="linkurl" value="{linkurl($MOD[linkurl].$linkurl, 1)}"/> 
+		</form>
+		<center>
+		[ <a href="{$MOD[linkurl]}search.php">{$MOD[name]}搜索</a> ]&nbsp;
+		[ <a href="javascript:addFav();">加入收藏</a> ]&nbsp;
+		[ <a href="javascript:$('sendmail').submit();void(0);">告诉好友</a> ]&nbsp;
+		[ <a href="javascript:Print();">打印本文</a> ]&nbsp;
+		[ <a href="javascript:window.close()">关闭窗口</a> ]&nbsp;
+		[ <a href="javascript:window.scrollTo(0,0);">返回顶部</a> ]
+		</center>
+		<br/>
+		<div class="b10">&nbsp;</div>
+		<div class="left_head"><span class="f_r px12"><a href="{$MOD[linkurl]}{$CATEGORY[$catid][linkurl]}">更多..</a>&nbsp;</span>同类{$MOD[name]}</div>
+		<div class="thumb">
+		<!--{tag("moduleid=$moduleid&table=product&length=14&catid=$catid&condition=status=3 and thumb!=''&pagesize=12&order=".$MOD[order]."&width=80&height=80&cols=6&template=thumb-table", -2)}-->
+		</div>
+		<br/>
+	</div>
+</div>
+<div class="rows_nav f_l">&nbsp;</div>
+<div class="rows2_right f_l">
+	<div class="contact_head">联系方式</div>
+	<div class="contact_body">
+		<ul>
+			<li class="f_b t_c" style="padding:3px 0 5px 0;font-size:16px;"><a href="{$member[linkurl]}" target="_blank">{$member[company]}</a></li>
+			{if $member[vip]}
+			<li class="f_orange" style="padding:5px 0 0 12px;"><img src="{SKIN_PATH}image/vip.gif"/> <img src="{SKIN_PATH}image/vip_{$member[vip]}.gif"/> [第{$member[year]}年] <a href="{$MODULE[2][linkurl]}favorite.php?action=add&amp;title={urlencode($member[company])}&amp;url={urlencode($member[linkurl])}" title="收藏此公司">[收藏]</a></li>
+			{if $member[validated]}
+			<li class="f_green" style="padding:5px 0 0 8px;">&nbsp;<img src="{SKIN_PATH}image/check_right.gif"/> 该企业资料已通过{$member[validator]}认证</li>
+			{/if}
+			{/if}
+			<li style="padding-top:3px;"><span>联系人</span>{$member[truename]}({$member[gender]})&nbsp;{$member[career]}
+				{if $member[msn]}&nbsp;<a href="msnim:chat?contact={$member[msn]}"><img src="{SKIN_PATH}image/msnchat.gif" width="25" height="17" title="点击MSN交谈/留言" alt=""/></a>{/if}
+				{if $member[qq]}&nbsp;<a href="tencent://message/?uin={$member[qq]}&Site={$DT[sitename]}&Menu=yes"><img src="http://wpa.qq.com/pa?p=1:{$member[qq]}:17" width="25" height="17" title="点击QQ交谈/留言" alt=""/></a>{/if}</li>
+			<li><span>会员</span> <a href="{$MODULE[2][linkurl]}friend.php?action=add&username={$username}">[加为商友]</a> <a href="{$MODULE[2][linkurl]}message.php?action=send&touser={$username}">[发送信件]</a></li>
+			{if $member[mail]}<li><span>邮件</span><a href="mailto:{$member[mail]}">{$member[mail]}</a></li>{/if}
+			{if $member[telephone]}<li><span>电话</span>{$member[telephone]}</li>{/if}
+			{if $member[fax]}<li><span>传真</span>{$member[fax]}</li>{/if}
+			<li><span>所在地</span>{area_pos($member[areaid], '&nbsp;')}</li>
+			{if $member[address]}<li><span>地址</span>{$member[address]}</li>{/if}
+			{if $member[postcode]}<li><span>邮编</span>{$member[postcode]}</li>{/if}
+		</ul>
+	</div>
+	<div class="b8 c_b"> </div>
+	<div class="box_head">{$MOD[name]}搜索</div>
+	<div class="box_body">
+	<form action="{$MOD[linkurl]}search.php">
+	<input type="text" size="25" name="kw"/> 
+	<input type="submit" value="搜索" class="btn"/>
+	<input type="button" value="高级" class="btn" onclick="window.location='{$MOD[linkurl]}search.php';"/>
+	</form>
+	</div>
+	<div class="b8 c_b"> </div>
+	<div class="box_head">该企业最新{$MOD[name]}</div>
+	<div class="box_body">
+	<!--{tag("moduleid=$moduleid&table=product&condition=status=3 and username='$username'&pagesize=10&datetype=2&order=edittime desc", -2)}-->
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+window.onload = function(){
+	var Imgs = $("content").getElementsByTagName("img");
+	for(var i=0;i<Imgs.length;i++)	{
+		ImgZoom(Imgs[i], {$MOD[max_width]});
+	}
+}
+</script>
+{template 'footer'}

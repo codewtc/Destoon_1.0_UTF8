@@ -1,0 +1,13 @@
+<br/>
+<anchor>返回<prev/></anchor>
+<a href="index.php">首页</a>
+{if !$_userid}<a href="index.php?moduleid=2&amp;action=login">登录</a>{/if}
+<br/>
+{if $_userid}欢迎,<b>{$_username}</b><br/><a href="index.php?moduleid=2&amp;action=message">站内信({if $_message}{$_message}{else}0{/if})</a> <a href="index.php?moduleid=2&amp;action=logout">注销</a><br/>{/if}
+<br/>
+<small>{$now}</small>
+<br/>
+<small><a href="http://wap.destoon.com">Powered by Destoon</a></small>
+</p>
+</card>
+</wml>

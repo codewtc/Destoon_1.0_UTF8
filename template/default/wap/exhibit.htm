@@ -1,0 +1,24 @@
+{template 'header', 'wap'}
+{if $itemid}
+	<b>{$title}</b><br/>
+	日期:<small>{$fromdate}~{$todate}</small><br/>
+	{if $page==1}
+	浏览:<small>{$hits}</small><br/>
+	城市:{$city}<br/>
+	地址:{$address}<br/>
+	展馆:{$hallname}<br/>
+	主办:{$sponsor}<br/>
+	电话:{$telephone}<br/>
+	{/if}
+	{$content}<br/>
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;catid={$v[catid]}">[{$v[catname]}]</a> <a href="index.php?moduleid={$moduleid}&amp;itemid={$v[itemid]}">{$v[title]}</a> ({$v[city]}) <small>{$v[fromdate]}~{$v[todate]}</small><br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<a href="index.php?moduleid={$moduleid}">{$MOD[name]}</a> 
+<input type="text" name="kw" value="{$kw}" format="M*m"/><anchor>搜索<go href="index.php" method="get"><postfield name="moduleid" value="{$moduleid}"/><postfield name="kw" value="$(kw)"/></go></anchor>
+<br/>
+{template 'footer', 'wap'}
